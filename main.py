@@ -1,6 +1,7 @@
 import pygame
 import src.player as player
 
+
 class Game:
     def __init__(self, screen) -> None:
         self.screen = screen
@@ -9,12 +10,19 @@ class Game:
 
     def render(self):
         self.screen.fill((57, 56, 82))
-    
+
+    def set_state(self, state):
+        self.state = state
+
     def update(self):
         match self.state:
             case 'game':
                 self.render()
                 self.player.update()
+            case 'lose':
+                pass
+            case 'levels':
+                pass
 
 
 def main():
@@ -36,6 +44,7 @@ def main():
 
         game.update()
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
