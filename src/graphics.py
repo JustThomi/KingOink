@@ -1,29 +1,21 @@
 import pygame
-
+import src.spritesheet as spritesheet
 
 class Animation:
-    def __init__(self, spritesheet, size, speed) -> None:
-        self.sprite_sheet = spritesheet
+    def __init__(self, img, size, speed) -> None:
+        self.sprite_sheet = spritesheet.Spritesheet(img, size)
         self.width, self.height = size
 
         self.frame = pygame.Surface(size).convert_alpha()
-        self.length = (self.sprite_sheet.get_width() / self.width) - 1
+        self.length = self.sprite_sheet.get_lenght()
         self.current_frame = 0
         self.time = 0
         self.speed = speed
 
-        self.fetch_frame()
+        self.frame = self.sprite_sheet.fetch_frame(self.current_frame)
 
     def get_frame(self):
         return self.frame
-
-    def fetch_frame(self):
-        self.frame = pygame.Surface(
-            (self.width, self.height)).convert_alpha()
-        self.frame.blit(self.sprite_sheet, (0, 0),
-                        (self.width * self.current_frame, 0, self.width, self.height))
-        self.frame = pygame.transform.scale(
-            self.frame, (self.width * 3, self.height * 3))
 
     def next_frame(self):
         if self.current_frame == self.length:
@@ -34,7 +26,7 @@ class Animation:
     def update(self):
         if self.time == self.speed:
             self.next_frame()
-            self.fetch_frame()
+            self.frame =  self.sprite_sheet.fetch_frame(self.current_frame)
             self.time = 0
         else:
             self.time += 1
@@ -53,3 +45,11 @@ class AnimationManager:
 
     def update(self):
         self.animations[self.state].update()
+
+
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, pos, size):
+        super().__init__()
+        self.image = pygame.Surface((size, size))
+        self.image.fill('white')
+        self.rect = self.image.get_rect(topleft = pos)

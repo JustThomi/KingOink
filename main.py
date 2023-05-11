@@ -1,6 +1,6 @@
 import pygame
 import src.player as player
-
+import src.scenes as scenes
 
 class Game:
     def __init__(self, screen) -> None:
@@ -8,8 +8,15 @@ class Game:
         self.player = player.Player(self.screen)
         self.state = 'game'
 
+        #scenes
+        self.lose_scene = scenes.Lose()
+        self.pause_scene = scenes.Pause()
+        self.menu_scene = scenes.Menu()
+        self.level = scenes.Level(screen)
+
     def render(self):
         self.screen.fill((57, 56, 82))
+        self.level.render()
 
     def set_state(self, state):
         self.state = state
@@ -20,9 +27,9 @@ class Game:
                 self.render()
                 self.player.update()
             case 'lose':
-                pass
-            case 'levels':
-                pass
+                self.lose_scene.update()
+            case 'menu':
+                self.menu_scene.update()
 
 
 def main():
