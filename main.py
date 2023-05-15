@@ -1,11 +1,9 @@
 import pygame
-import src.player as player
 import src.scenes as scenes
 
 class Game:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.player = player.Player(self.screen)
         self.state = 'game'
 
         #scenes
@@ -24,8 +22,8 @@ class Game:
     def update(self):
         match self.state:
             case 'game':
+                self.level.update()
                 self.render()
-                self.player.update()
             case 'lose':
                 self.lose_scene.update()
             case 'menu':
