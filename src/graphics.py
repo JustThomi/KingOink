@@ -1,6 +1,7 @@
 import pygame
 import src.spritesheet as spritesheet
 
+
 class Animation:
     def __init__(self, img, size, speed) -> None:
         self.sprite_sheet = spritesheet.Spritesheet(img, size)
@@ -11,7 +12,6 @@ class Animation:
         self.length = self.sprite_sheet.get_lenght()
         self.time = 0
         self.speed = speed
-
 
     def get_frame(self):
         return self.frame
@@ -25,7 +25,8 @@ class Animation:
     def update(self):
         if self.time == self.speed:
             self.next_frame()
-            self.frame =  self.sprite_sheet.fetch_frame(self.current_frame)
+            self.frame = self.sprite_sheet.fetch_frame(
+                self.current_frame)
             self.time = 0
         else:
             self.time += 1

@@ -1,19 +1,21 @@
 import pygame
 import src.scenes as scenes
+import src.settings as settings
+
 
 class Game:
     def __init__(self, screen) -> None:
         self.screen = screen
         self.state = 'game'
 
-        #scenes
+        # scenes
         self.lose_scene = scenes.Lose()
         self.pause_scene = scenes.Pause()
         self.menu_scene = scenes.Menu()
-        self.level = scenes.Level(screen)
+        self.level = scenes.Level(screen, settings.test_level)
 
     def render(self):
-        self.screen.fill((57, 56, 82))
+        self.screen.fill((63, 56, 81))
         self.level.render()
 
     def set_state(self, state):

@@ -40,7 +40,12 @@ class Player:
             self.surface = pygame.transform.flip(self.surface, True, False)
 
         self.surface.set_colorkey((0, 0, 0))
-        self.screen.blit(self.surface, (self.rect.x, self.rect.y))
+        self.screen.blit(self.surface, (self.rect.x - 38, self.rect.y - 30))
+
+        # testing rects
+        # white = pygame.Surface((self.width, self.height))
+        # pygame.draw.rect(white, (255, 255, 255), self.rect)
+        # self.screen.blit(white, self.rect)
 
     def gravity(self):
         if self.is_in_air:
@@ -63,4 +68,3 @@ class Player:
 
     def move(self):
         self.rect.x += self.direction.x * self.velocity
-

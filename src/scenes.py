@@ -3,15 +3,17 @@ import src.spritesheet as spritesheet
 import src.settings as settings
 import src.player as player
 
+
 class Menu:
     def __init__(self) -> None:
         pass
 
     def update(self):
         pass
-    
+
     def render(self):
         pass
+
 
 class Lose:
     def __init__(self) -> None:
@@ -19,23 +21,25 @@ class Lose:
 
     def update(self):
         pass
-    
+
     def render(self):
         pass
+
 
 class Pause:
     def __init__(self) -> None:
-        pass 
+        pass
 
     def update(self):
         pass
-    
+
     def render(self):
         pass
 
+
 class Level:
-    def __init__(self, screen) -> None:
-        self.layout = settings.level_1
+    def __init__(self, screen, layout) -> None:
+        self.layout = layout
         self.screen = screen
 
         self.player = player.Player(screen)
@@ -53,13 +57,17 @@ class Level:
         for row_id, row in enumerate(self.layout):
             for tile_id, tile in enumerate(row):
                 if tile in self.terrain_tiles.background.keys():
-                    position = (tile_id * settings.tile_size, row_id * settings.tile_size)
-                    t = spritesheet.Tile(tile, position, (settings.tile_size, settings.tile_size))
+                    position = (tile_id * settings.tile_size,
+                                row_id * settings.tile_size)
+                    t = spritesheet.Tile(
+                        tile, position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
                     self.bg_tiles.append(t)
                 elif tile in self.terrain_tiles.walls.keys():
-                    position = (tile_id * settings.tile_size, row_id * settings.tile_size)
-                    t = spritesheet.Tile(tile, position, (settings.tile_size, settings.tile_size))
+                    position = (tile_id * settings.tile_size,
+                                row_id * settings.tile_size)
+                    t = spritesheet.Tile(
+                        tile, position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
                     self.wall_tiles.append(t)
 
@@ -78,7 +86,7 @@ class Level:
         if keys[pygame.K_SPACE]:
             if not self.player.is_in_air:
                 self.player.jump()
-    
+
     def vertical_collision(self):
         self.player.gravity()
 
@@ -106,7 +114,7 @@ class Level:
         self.player.update()
         self.horizontal_collision()
         self.vertical_collision()
-        
+
     def move_map(self):
         for tile in self.map:
             tile.rect.x += self.scroll_speed
@@ -127,9 +135,11 @@ class Level:
     def render(self):
         # render tiles
         for tile in self.bg_tiles:
-            self.screen.blit(self.terrain_tiles.background[tile.sprite_id], (tile.rect.x, tile.rect.y))
+            self.screen.blit(
+                self.terrain_tiles.background[tile.sprite_id], (tile.rect.x, tile.rect.y))
 
         for tile in self.wall_tiles:
-            self.screen.blit(self.terrain_tiles.walls[tile.sprite_id], (tile.rect.x, tile.rect.y))
-        
+            self.screen.blit(
+                self.terrain_tiles.walls[tile.sprite_id], tile.rect)
+
         self.player.render()
