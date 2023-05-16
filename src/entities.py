@@ -68,3 +68,42 @@ class Player:
 
     def move(self):
         self.rect.x += self.direction.x * self.velocity
+
+
+class Door:
+    def __init__(self, state, screen) -> None:
+        self.state = state
+        self.screen = screen
+        self.width, self.height = (46, 56)
+        self.surface = pygame.Surface((self.width, self.height))
+        # hardcoded pos for testing
+        self.rect = pygame.Rect((500, 400), (self.width, self.height))
+
+        self.animations = {
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')), (self.width, self.height), 1),
+            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 10),
+            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 10)
+        }
+
+        self.animation_manager = graphics.AnimationManager(self.animations)
+
+    def update(self):
+        self.animation_manager.update()
+        self.animate()
+
+    def render(self):
+        # load and set correct direction of frame
+        self.surface = self.animation_manager.get_current_animation().get_frame()
+
+        self.surface.set_colorkey((0, 0, 0))
+        self.screen.blit(self.surface, (self.rect.x, self.rect.y))
+
+    def animate(self):
+        # temp var
+        cond = False
+        self.animation_manager.set_state('idle')
+
+        if cond:
+            self.animation_manager.set_state('open')
+        if cond:
+            self.animation_manager.set_state('jump')

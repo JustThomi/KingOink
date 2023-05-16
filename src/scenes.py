@@ -1,7 +1,9 @@
 import pygame
 import src.spritesheet as spritesheet
 import src.settings as settings
-import src.player as player
+import src.entities as entities
+
+# should have used a parent class...oh well :)
 
 
 class Menu:
@@ -42,7 +44,7 @@ class Level:
         self.layout = layout
         self.screen = screen
 
-        self.player = player.Player(screen)
+        self.player = entities.Player(screen)
         self.scroll_speed = 0
         self.player_vel = self.player.velocity
 
@@ -50,6 +52,9 @@ class Level:
         self.map = []
         self.bg_tiles = []
         self.wall_tiles = []
+
+        self.enter_door = entities.Door('enter', self.screen)
+        self.exit_door = entities.Door('exit', self.screen)
 
         self.load()
 
@@ -119,6 +124,9 @@ class Level:
         for tile in self.map:
             tile.rect.x += self.scroll_speed
 
+        self.enter_door.rect.x += self.scroll_speed
+        self.exit_door.rect.x += self.scroll_speed
+
     def scroll_map(self):
         self.move_map()
 
@@ -142,4 +150,5 @@ class Level:
             self.screen.blit(
                 self.terrain_tiles.walls[tile.sprite_id], tile.rect)
 
+        self.enter_door.render()
         self.player.render()
