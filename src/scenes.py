@@ -4,9 +4,9 @@ import src.spritesheet as spritesheet
 import src.settings as settings
 import src.entities as entities
 
+
+#TODO plan before working on the scene manager :skull:
 # should have used a parent class...oh well :)
-
-
 class Menu:
     def __init__(self, screen, layout) -> None:
         self.layout = layout
@@ -24,7 +24,7 @@ class Menu:
         self.title = pygame.image.load(os.path.join('assets', 'KingOink_title.png'))
         self.title = pygame.transform.scale(self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 
-        self.door_level_1 = entities.Door('enter', self.screen)
+        self.door_level_1 = entities.Door('enter', self.screen, (500, 400))
 
         self.load()
 
@@ -91,6 +91,8 @@ class Menu:
         self.horizontal_collision()
         self.vertical_collision()
 
+        self.door_level_1.update()
+
     def move_map(self):
         for tile in self.map:
             tile.rect.x += self.scroll_speed
@@ -119,6 +121,7 @@ class Menu:
                 self.terrain_tiles.walls[tile.sprite_id], tile.rect)
             
         self.screen.blit(self.title, (self.screen.get_width()/2 - self.title.get_width()/2, 200))
+        self.door_level_1.render()
         self.player.render()
 
 
@@ -158,8 +161,8 @@ class Level:
         self.bg_tiles = []
         self.wall_tiles = []
 
-        self.enter_door = entities.Door('enter', self.screen)
-        self.exit_door = entities.Door('exit', self.screen)
+        self.enter_door = entities.Door('enter', self.screen, (500, 400))
+        self.exit_door = entities.Door('exit', self.screen, (2100, 400))
 
         self.load()
 
@@ -196,6 +199,10 @@ class Level:
         if keys[pygame.K_SPACE]:
             if not self.player.is_in_air:
                 self.player.jump()
+        
+        if keys[pygame.K_RETURN] and self.player.rect.colliderect(self.exit_door.rect):
+            self.exit_door.animation_manager.set_state('open')
+            print('left the level')
 
     def vertical_collision(self):
         self.player.gravity()
@@ -225,6 +232,9 @@ class Level:
         self.player.update()
         self.horizontal_collision()
         self.vertical_collision()
+
+        self.enter_door.update()
+        self.exit_door.update()
 
     def move_map(self):
         for tile in self.map:
@@ -257,4 +267,5 @@ class Level:
                 self.terrain_tiles.walls[tile.sprite_id], tile.rect)
 
         self.enter_door.render()
+        self.exit_door.render()
         self.player.render()

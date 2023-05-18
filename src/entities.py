@@ -71,18 +71,18 @@ class Player:
 
 
 class Door:
-    def __init__(self, state, screen) -> None:
+    def __init__(self, state, screen, pos) -> None:
         self.state = state
         self.screen = screen
         self.width, self.height = (46, 56)
         self.surface = pygame.Surface((self.width, self.height))
         # hardcoded pos for testing
-        self.rect = pygame.Rect((500, 400), (self.width, self.height))
+        self.rect = pygame.Rect(pos, (self.width, self.height))
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')), (self.width, self.height), 1),
-            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 10),
-            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 10)
+            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 5),
+            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 5)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -92,7 +92,6 @@ class Door:
         self.animate()
 
     def render(self):
-        # load and set correct direction of frame
         self.surface = self.animation_manager.get_current_animation().get_frame()
 
         self.surface.set_colorkey((0, 0, 0))

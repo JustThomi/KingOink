@@ -6,7 +6,7 @@ import src.settings as settings
 class Game:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.state = 'menu'
+        self.state = 'game'
 
         # scenes
         self.lose_scene = scenes.Lose()
