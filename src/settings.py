@@ -1,12 +1,12 @@
 tile_size = 64
 
-test_level = ["                                                       ",
-              "      RPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPS         ",
-              "      NABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBCM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHIM         ",
-              "      TKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKU         ",
-              "                                                       ", ]
+menu_level = ["                                             ",
+              "      RPPPPPPPPPPPPPPPPPPPPPPPPPPPPS         ",
+              "      NABBBBBBBBBBBBBBBBBBBBBBBBBBCM         ",
+              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
+              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
+              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
+              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
+              "      NGHHHHHHHHHHHHHHHHHHHHHHHHHHIM         ",
+              "      TKKKKKKKKKKKKKKKKKKKKKKKKKKKKU         ",
+              "                                             ", ]

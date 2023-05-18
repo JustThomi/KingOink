@@ -1,4 +1,5 @@
 import pygame
+import os
 import src.spritesheet as spritesheet
 import src.settings as settings
 import src.entities as entities
@@ -19,6 +20,9 @@ class Menu:
         self.map = []
         self.bg_tiles = []
         self.wall_tiles = []
+
+        self.title = pygame.image.load(os.path.join('assets', 'KingOink_title.png'))
+        self.title = pygame.transform.scale(self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 
         self.door_level_1 = entities.Door('enter', self.screen)
 
@@ -113,7 +117,8 @@ class Menu:
         for tile in self.wall_tiles:
             self.screen.blit(
                 self.terrain_tiles.walls[tile.sprite_id], tile.rect)
-
+            
+        self.screen.blit(self.title, (self.screen.get_width()/2 - self.title.get_width()/2, 200))
         self.player.render()
 
 
