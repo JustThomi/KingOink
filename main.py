@@ -6,13 +6,13 @@ import src.settings as settings
 class Game:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.state = 'game'
+        self.state = 'tutorial'
 
         # scenes
         self.lose_scene = scenes.Lose()
         self.pause_scene = scenes.Pause()
-        self.menu_scene = scenes.Menu(screen, settings.menu_level)
-        self.level = scenes.Level(screen, settings.menu_level)
+        self.tutorial = scenes.Level(screen, settings.menu_level, True)
+        self.level = scenes.Level(screen, settings.menu_level, False)
 
     def render(self):
         self.screen.fill((63, 56, 81))
@@ -28,9 +28,9 @@ class Game:
             case 'lose':
                 self.render()
                 self.lose_scene.update()
-            case 'menu':
+            case 'tutorial':
                 self.render()
-                self.menu_scene.update()
+                self.tutorial.update()
 
 
 def main():
