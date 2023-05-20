@@ -21,7 +21,8 @@ class Player:
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'idle.png')), (self.width, self.height), 5),
             'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'run.png')), (self.width, self.height), 7),
             'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'jump.png')), (self.width, self.height), 1),
-            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'fall.png')), (self.width, self.height), 1)
+            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'fall.png')), (self.width, self.height), 1),
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 8, False)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -30,7 +31,7 @@ class Player:
     def update(self):
         self.move()
         self.animation_manager.update()
-        self.animate()
+        # self.animate()
 
     def render(self):
         # load and set correct direction of frame
@@ -63,8 +64,12 @@ class Player:
             self.animation_manager.set_state('fall')
 
     def jump(self):
+        self.animation_manager.set_state('jump')
         self.direction.y = self.jump_force
         self.is_in_air = True
+    
+    def attack(self):
+        self.animation_manager.set_state('attack')
 
     def move(self):
         self.rect.x += self.direction.x * self.velocity
@@ -81,8 +86,8 @@ class Door:
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')), (self.width, self.height), 1),
-            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 5),
-            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 5)
+            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 5, False),
+            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 5, False)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)

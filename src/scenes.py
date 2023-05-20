@@ -32,6 +32,7 @@ class Level:
         self.layout = layout
         self.screen = screen
         self.is_tutorial = tutorial
+        self.level_cleared = False
 
         self.player = entities.Player(screen)
         self.scroll_speed = 0
@@ -76,19 +77,27 @@ class Level:
         if keys[pygame.K_a]:
             self.player.direction.x = -1
             self.player.flip_sprite = True
+            self.player.animation_manager.set_state('run')
         elif keys[pygame.K_d]:
             self.player.direction.x = 1
             self.player.flip_sprite = False
+            self.player.animation_manager.set_state('run')
         else:
             self.player.direction.x = 0
+            self.player.animation_manager.set_state('idle')
 
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_w]:
             if not self.player.is_in_air:
                 self.player.jump()
+        
+        if keys[pygame.K_SPACE]:
+            self.player.attack()
 
         if keys[pygame.K_RETURN] and self.player.rect.colliderect(self.exit_door.rect):
-            self.exit_door.animation_manager.set_state('open')
-            print('left the level')
+            if not self.level_cleared:
+                self.exit_door.animation_manager.set_state('open')
+                self.level_cleared = not self.level_cleared
+                print("swap levels here")
 
     def vertical_collision(self):
         self.player.gravity()
