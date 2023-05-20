@@ -111,3 +111,35 @@ class Door:
             self.animation_manager.set_state('open')
         if cond:
             self.animation_manager.set_state('jump')
+
+
+
+class Box:
+    def __init__(self, screen, position) -> None:
+        self.screen = screen
+        self.width, self.height = (22, 16)
+        self.surface = pygame.Surface((self.width, self.height))
+        self.rect = self.surface.get_rect()
+        self.set_position(position)
+
+        self.animations = {
+            'idle' : graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'idle.png')), (self.width, self.height), 1),
+            'hit' : graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'hit.png')), (self.width, self.height), 1),
+        }
+        self.animation_manager = graphics.AnimationManager(self.animations)
+    
+    def set_position(self, position):
+        self.rect.x, self.rect.y = position
+    
+    def render(self):
+        self.surface = self.animation_manager.get_current_animation().get_frame()
+
+        self.surface.set_colorkey((0, 0, 0))
+        self.screen.blit(self.surface, (self.rect.x, self.rect.y))
+
+    def update(self):
+        self.animation_manager.update()
+        self.animate()
+    
+    def animate(self):
+        self.animation_manager.set_state('idle')

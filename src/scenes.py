@@ -35,10 +35,12 @@ class Level:
         self.is_tutorial = tutorial
         self.level_cleared = False
 
+        self.entities = []
         self.player = entities.Player(screen)
+        self.entities.append(self.player)
         self.scroll_speed = 0
         self.player_vel = self.player.velocity
-
+        
         self.terrain_tiles = spritesheet.TerrainTiles()
         self.decoratione_tiles = spritesheet.DecorationTiles()
         self.map = []
@@ -53,6 +55,11 @@ class Level:
 
         self.enter_door = entities.Door('enter', self.screen, (500, 400))
         self.exit_door = entities.Door('exit', self.screen, (2100, 400))
+        self.box = entities.Box(self.screen, (600, 480))
+
+        self.map.append(self.enter_door)
+        self.map.append(self.exit_door)
+        self.map.append(self.box)
 
         self.load()
 
@@ -113,43 +120,32 @@ class Level:
                 print("swap levels here")
 
     def vertical_collision(self):
-        self.player.gravity()
 
-        for tile in self.wall_tiles:
-            if tile.rect.colliderect(self.player.rect):
-                if self.player.direction.y > 0:
-                    self.player.rect.bottom = tile.rect.top
-                    self.player.direction.y = 0
-                    self.player.is_in_air = False
-                if self.player.direction.y < 0:
-                    self.player.rect.top = tile.rect.bottom
-                    self.player.direction.y = 0
+        for entity in self.entities:
+            entity.gravity()
+
+            for tile in self.wall_tiles:
+                if tile.rect.colliderect(entity.rect):
+                    if entity.direction.y > 0:
+                        entity.rect.bottom = tile.rect.top
+                        entity.direction.y = 0
+                        entity.is_in_air = False
+                    if entity.direction.y < 0:
+                        entity.rect.top = tile.rect.bottom
+                        entity.direction.y = 0
 
     def horizontal_collision(self):
-        for tile in self.wall_tiles:
-            if tile.rect.colliderect(self.player.rect):
-                if self.player.direction.x > 0:
-                    self.player.rect.right = tile.rect.left
-                if self.player.direction.x < 0:
-                    self.player.rect.left = tile.rect.right
-
-    def update(self):
-        self.render()
-        self.scroll_map()
-        self.input()
-        self.player.update()
-        self.horizontal_collision()
-        self.vertical_collision()
-
-        self.enter_door.update()
-        self.exit_door.update()
+        for entity in self.entities:
+            for tile in self.wall_tiles:
+                if tile.rect.colliderect(entity.rect):
+                    if entity.direction.x > 0:
+                        entity.rect.right = tile.rect.left
+                    if entity.direction.x < 0:
+                        entity.rect.left = tile.rect.right
 
     def move_map(self):
         for tile in self.map:
             tile.rect.x += self.scroll_speed
-
-        self.enter_door.rect.x += self.scroll_speed
-        self.exit_door.rect.x += self.scroll_speed
 
     def scroll_map(self):
         self.move_map()
@@ -163,6 +159,18 @@ class Level:
         else:
             self.scroll_speed = 0
             self.player.velocity = self.player_vel
+
+    def update(self):
+        self.render()
+        self.scroll_map()
+        self.input()
+        self.player.update()
+        self.horizontal_collision()
+        self.vertical_collision()
+
+        self.box.update()
+        self.enter_door.update()
+        self.exit_door.update()
 
     def render(self):
         # render tiles
@@ -184,4 +192,5 @@ class Level:
 
         self.enter_door.render()
         self.exit_door.render()
+        self.box.render()
         self.player.render()

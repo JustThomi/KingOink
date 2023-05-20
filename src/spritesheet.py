@@ -1,4 +1,5 @@
 import pygame
+import src.graphics as graphics
 import os
 
 
@@ -81,7 +82,6 @@ class DecorationTiles:
             'I': self.decorations_tileset.fetch_frame(3, 3),
             'N': self.decorations_tileset.fetch_frame(2, 4),
             'D': self.decorations_tileset.fetch_frame(3, 4),
-            # rest is not yet right
         }
 
 # reference for level building untill I take the time to make a better system
