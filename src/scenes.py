@@ -28,8 +28,9 @@ class Pause:
 
 
 class Level:
-    def __init__(self, screen, layout, tutorial) -> None:
+    def __init__(self, screen, layout, deco_layout, tutorial) -> None:
         self.layout = layout
+        self.deco_layout = deco_layout
         self.screen = screen
         self.is_tutorial = tutorial
         self.level_cleared = False
@@ -39,9 +40,11 @@ class Level:
         self.player_vel = self.player.velocity
 
         self.terrain_tiles = spritesheet.TerrainTiles()
+        self.decoratione_tiles = spritesheet.DecorationTiles()
         self.map = []
         self.bg_tiles = []
         self.wall_tiles = []
+        self.decorationes = []
 
         self.title = pygame.image.load(
             os.path.join('assets', 'KingOink_title.png'))
@@ -70,6 +73,16 @@ class Level:
                         tile, position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
                     self.wall_tiles.append(t)
+
+        for row_id, row in enumerate(self.deco_layout):
+            for tile_id, tile in enumerate(row):
+                if tile in self.decoratione_tiles.decorations.keys():
+                    position = (tile_id * settings.tile_size,
+                                row_id * settings.tile_size)
+                    t = spritesheet.Tile(
+                        tile, position, (settings.tile_size, settings.tile_size))
+                    self.map.append(t)
+                    self.decorationes.append(t)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -160,6 +173,10 @@ class Level:
         for tile in self.wall_tiles:
             self.screen.blit(
                 self.terrain_tiles.walls[tile.sprite_id], tile.rect)
+            
+        for tile in self.decorationes:
+            self.screen.blit(
+                self.decoratione_tiles.decorations[tile.sprite_id], tile.rect)
 
         if self.is_tutorial:
             self.screen.blit(self.title, (self.screen.get_width() /

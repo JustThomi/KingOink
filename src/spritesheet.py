@@ -70,6 +70,20 @@ class TerrainTiles:
 
         }
 
+
+class DecorationTiles:
+    def __init__(self) -> None:
+        self.decorations_tileset = Spritesheet(pygame.image.load(
+            os.path.join('assets', 'environment', 'decorations.png')), (32, 32))
+
+        self.decorations = {
+            'W': self.decorations_tileset.fetch_frame(2, 3),
+            'I': self.decorations_tileset.fetch_frame(3, 3),
+            'N': self.decorations_tileset.fetch_frame(2, 4),
+            'D': self.decorations_tileset.fetch_frame(3, 4),
+            # rest is not yet right
+        }
+
 # reference for level building untill I take the time to make a better system
 # A B C        J K L       R S
 # D E F        M   N       T U

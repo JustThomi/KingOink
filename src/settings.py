@@ -10,3 +10,14 @@ menu_level = ["                                             ",
               "      NGHHHHHHHHHHHHHHHHHHHHHHHHHHIM         ",
               "      TKKKKKKKKKKKKKKKKKKKKKKKKKKKKU         ",
               "                                             ", ]
+
+menu_decor = ["                                             ",
+              "                                             ",
+              "                                             ",
+              "                                             ",
+              "           WI       WI       WI              ",
+              "           ND       ND       ND              ",
+              "                                             ",
+              "                                             ",
+              "                                             ",
+              "                                             ", ]
