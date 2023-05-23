@@ -15,7 +15,7 @@ class Player:
         self.width, self.height = (78, 58)
         self.surface = pygame.Surface((self.width, self.height))
         self.rect = pygame.Rect(self.screen.get_width() / 2,
-                                self.screen.get_height() / 2, self.width, self.height)
+                                self.screen.get_height() / 2, self.width - 25, self.height - 10)
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'idle.png')), (self.width, self.height), 5),
@@ -31,7 +31,6 @@ class Player:
     def update(self):
         self.move()
         self.animation_manager.update()
-        # self.animate()
 
     def render(self):
         # load and set correct direction of frame
@@ -41,7 +40,7 @@ class Player:
             self.surface = pygame.transform.flip(self.surface, True, False)
 
         self.surface.set_colorkey((0, 0, 0))
-        self.screen.blit(self.surface, (self.rect.x - 38, self.rect.y - 30))
+        self.screen.blit(self.surface, (self.rect.x - 50, self.rect.y - 40))
 
         # testing rects
         # white = pygame.Surface((self.width, self.height))
@@ -49,19 +48,8 @@ class Player:
         # self.screen.blit(white, self.rect)
 
     def gravity(self):
-        if self.is_in_air:
-            self.direction.y += 0.9
-            self.rect.y += self.direction.y
-
-    def animate(self):
-        if self.direction.x == 0:
-            self.animation_manager.set_state('idle')
-        if self.direction.x != 0:
-            self.animation_manager.set_state('run')
-        if self.direction.y < 0:
-            self.animation_manager.set_state('jump')
-        if self.direction.y > 0:
-            self.animation_manager.set_state('fall')
+        self.direction.y += 0.9
+        self.rect.y += self.direction.y
 
     def jump(self):
         self.animation_manager.set_state('jump')

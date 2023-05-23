@@ -1,14 +1,14 @@
 tile_size = 64
 
 menu_level = ["                                             ",
-              "      RPPPPPPPPPPPPPPPPPPPPPPPPPPPPS         ",
-              "      NABBBBBBBBBBBBBBBBBBBBBBBBBBCM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NDXXXXXXXXXXXXXXXXXXXXXXXXXXFM         ",
-              "      NGHHHHHHHHHHHHHHHHHHHHHHHHHHIM         ",
-              "      TKKKKKKKKKKKKKKKKKKKKKKKKKKKKU         ",
+              "      RPPPPPPPPPPPZPPPPPPPPPPPPPPPPS         ",
+              "      NABBBBBBBBBBWBBBBBBBBBBBBBBBCM         ",
+              "      NDEEEEEEEEEEWEEEEEEEEEEEEEEEFM         ",
+              "      NDEEEEEEEEEEXEEEEEEEEEEEEEEEFM         ",
+              "      NDEEEEEEEEEEEEEEEEEEEEEEEEEEFM         ",
+              "      NDEEEEEEEEEEVEEEEEEEEEEEEEEEFM         ",
+              "      NGHHHHHHHHHHWHHHHHHHHHHHHHHHIM         ",
+              "      TKKKKKKKKKKKYKKKKKKKKKKKKKKKKU         ",
               "                                             ", ]
 
 menu_decor = ["                                             ",

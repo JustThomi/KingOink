@@ -120,7 +120,6 @@ class Level:
                 print("swap levels here")
 
     def vertical_collision(self):
-
         for entity in self.entities:
             entity.gravity()
 

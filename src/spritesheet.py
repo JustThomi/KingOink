@@ -47,7 +47,7 @@ class TerrainTiles:
             'B': self.background_tileset.fetch_frame(2, 7),
             'C': self.background_tileset.fetch_frame(3, 7),
             'D': self.background_tileset.fetch_frame(1, 8),
-            'X': self.background_tileset.fetch_frame(2, 8),
+            'E': self.background_tileset.fetch_frame(2, 8),
             'F': self.background_tileset.fetch_frame(3, 8),
             'G': self.background_tileset.fetch_frame(1, 9),
             'H': self.background_tileset.fetch_frame(2, 9),
@@ -69,6 +69,12 @@ class TerrainTiles:
             'T': self.background_tileset.fetch_frame(7, 2),
             'U': self.background_tileset.fetch_frame(8, 2),
 
+            'V' : self.background_tileset.fetch_frame(5, 1),
+            'W' : self.background_tileset.fetch_frame(5, 2),
+            'X' : self.background_tileset.fetch_frame(5, 3),
+
+            'Y' : self.background_tileset.fetch_frame(11, 1),
+            'Z' : self.background_tileset.fetch_frame(10, 2)
         }
 
 
@@ -85,6 +91,6 @@ class DecorationTiles:
         }
 
 # reference for level building untill I take the time to make a better system
-# A B C        J K L       R S
-# D E F        M   N       T U
-# G H I        O P Q
+# A B C    V    J K L       R S
+# D E F    W    M   N       T U
+# G H I    X    O P Q
