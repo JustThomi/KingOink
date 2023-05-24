@@ -25,8 +25,8 @@ class Spritesheet:
 
 
 class Tile():
-    def __init__(self, id, pos, size):
-        self.sprite_id = id
+    def __init__(self, sprite, pos, size):
+        self.surface = sprite
         self.rect = pygame.Rect(pos, size)
 
     def set_pos(self, x, y):
@@ -88,6 +88,13 @@ class DecorationTiles:
             'I': self.decorations_tileset.fetch_frame(3, 3),
             'N': self.decorations_tileset.fetch_frame(2, 4),
             'D': self.decorations_tileset.fetch_frame(3, 4),
+        }
+
+        self.platforms = {
+            'P' : self.decorations_tileset.fetch_frame(2, 2),
+            'L' : self.decorations_tileset.fetch_frame(3, 2),
+            'A' : self.decorations_tileset.fetch_frame(4, 2),
+            'T' : self.decorations_tileset.fetch_frame(5, 2),
         }
 
 # reference for level building untill I take the time to make a better system

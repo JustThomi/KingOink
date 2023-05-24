@@ -17,7 +17,7 @@ menu_decor = ["                                             ",
               "                                             ",
               "           WI       WI       WI              ",
               "           ND       ND       ND              ",
-              "                                             ",
+              "                 T                           ",
               "                                             ",
               "                                             ",
               "                                             ", ]

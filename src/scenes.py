@@ -44,9 +44,7 @@ class Level:
         self.terrain_tiles = spritesheet.TerrainTiles()
         self.decoratione_tiles = spritesheet.DecorationTiles()
         self.map = []
-        self.bg_tiles = []
-        self.wall_tiles = []
-        self.decorationes = []
+        self.collidables = []
 
         self.title = pygame.image.load(
             os.path.join('assets', 'KingOink_title.png'))
@@ -59,7 +57,9 @@ class Level:
 
         self.map.append(self.enter_door)
         self.map.append(self.exit_door)
+        # box collide test
         self.map.append(self.box)
+        self.collidables.append(self.box)
 
         self.load()
 
@@ -70,16 +70,15 @@ class Level:
                     position = (tile_id * settings.tile_size,
                                 row_id * settings.tile_size)
                     t = spritesheet.Tile(
-                        tile, position, (settings.tile_size, settings.tile_size))
+                        self.terrain_tiles.background[tile], position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
-                    self.bg_tiles.append(t)
                 elif tile in self.terrain_tiles.walls.keys():
                     position = (tile_id * settings.tile_size,
                                 row_id * settings.tile_size)
                     t = spritesheet.Tile(
-                        tile, position, (settings.tile_size, settings.tile_size))
+                        self.terrain_tiles.walls[tile], position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
-                    self.wall_tiles.append(t)
+                    self.collidables.append(t)
 
         for row_id, row in enumerate(self.deco_layout):
             for tile_id, tile in enumerate(row):
@@ -87,9 +86,15 @@ class Level:
                     position = (tile_id * settings.tile_size,
                                 row_id * settings.tile_size)
                     t = spritesheet.Tile(
-                        tile, position, (settings.tile_size, settings.tile_size))
+                        self.decoratione_tiles.decorations[tile], position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
-                    self.decorationes.append(t)
+                if tile in self.decoratione_tiles.platforms.keys():
+                    position = (tile_id * settings.tile_size,
+                                row_id * settings.tile_size)
+                    t = spritesheet.Tile(
+                        self.decoratione_tiles.platforms[tile], position, (settings.tile_size, settings.tile_size))
+                    self.map.append(t)
+                    self.collidables.append(t)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -117,13 +122,13 @@ class Level:
             if not self.level_cleared:
                 self.exit_door.animation_manager.set_state('open')
                 self.level_cleared = not self.level_cleared
-                print("swap levels here")
+                #TODO "swap levels here"
 
     def vertical_collision(self):
         for entity in self.entities:
             entity.gravity()
 
-            for tile in self.wall_tiles:
+            for tile in self.collidables:
                 if tile.rect.colliderect(entity.rect):
                     if entity.direction.y > 0:
                         entity.rect.bottom = tile.rect.top
@@ -135,7 +140,7 @@ class Level:
 
     def horizontal_collision(self):
         for entity in self.entities:
-            for tile in self.wall_tiles:
+            for tile in self.collidables:
                 if tile.rect.colliderect(entity.rect):
                     if entity.direction.x > 0:
                         entity.rect.right = tile.rect.left
@@ -173,17 +178,8 @@ class Level:
 
     def render(self):
         # render tiles
-        for tile in self.bg_tiles:
-            self.screen.blit(
-                self.terrain_tiles.background[tile.sprite_id], (tile.rect.x, tile.rect.y))
-
-        for tile in self.wall_tiles:
-            self.screen.blit(
-                self.terrain_tiles.walls[tile.sprite_id], tile.rect)
-            
-        for tile in self.decorationes:
-            self.screen.blit(
-                self.decoratione_tiles.decorations[tile.sprite_id], tile.rect)
+        for tile in self.map:
+            self.screen.blit(tile.surface, tile.rect)
 
         if self.is_tutorial:
             self.screen.blit(self.title, (self.screen.get_width() /
