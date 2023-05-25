@@ -40,7 +40,7 @@ class Level:
         self.entities.append(self.player)
         self.scroll_speed = 0
         self.player_vel = self.player.velocity
-        
+
         self.terrain_tiles = spritesheet.TerrainTiles()
         self.decoratione_tiles = spritesheet.DecorationTiles()
         self.map = []
@@ -114,7 +114,7 @@ class Level:
         if keys[pygame.K_w]:
             if not self.player.is_in_air:
                 self.player.jump()
-        
+
         if keys[pygame.K_SPACE]:
             self.player.attack()
 
@@ -122,7 +122,7 @@ class Level:
             if not self.level_cleared:
                 self.exit_door.animation_manager.set_state('open')
                 self.level_cleared = not self.level_cleared
-                #TODO "swap levels here"
+                # TODO "swap levels here"
 
     def vertical_collision(self):
         for entity in self.entities:
@@ -179,6 +179,7 @@ class Level:
     def render(self):
         # render tiles
         for tile in self.map:
+            tile.surface.set_colorkey((0, 0, 0))
             self.screen.blit(tile.surface, tile.rect)
 
         if self.is_tutorial:

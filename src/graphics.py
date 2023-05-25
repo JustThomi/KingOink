@@ -3,7 +3,7 @@ import src.spritesheet as spritesheet
 
 
 class Animation:
-    def __init__(self, img, size, speed, loop = True) -> None:
+    def __init__(self, img, size, speed, loop=True) -> None:
         self.sprite_sheet = spritesheet.Spritesheet(img, size)
         self.width, self.height = size
 
@@ -30,7 +30,7 @@ class Animation:
             self.current_frame = 0
         else:
             self.current_frame += 1
-        
+
         return ''
 
     def update(self):
@@ -43,7 +43,7 @@ class Animation:
             self.time = 0
         else:
             self.time += 1
-        
+
         return status
 
 

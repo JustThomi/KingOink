@@ -11,8 +11,10 @@ class Game:
         # scenes
         self.lose_scene = scenes.Lose()
         self.pause_scene = scenes.Pause()
-        self.tutorial = scenes.Level(screen, settings.menu_level, settings.menu_decor, True)
-        self.level = scenes.Level(screen, settings.menu_level, settings.menu_decor, False)
+        self.tutorial = scenes.Level(
+            screen, settings.menu_level, settings.menu_decor, True)
+        self.level = scenes.Level(
+            screen, settings.menu_level, settings.menu_decor, False)
 
     def render(self):
         self.screen.fill((63, 56, 81))

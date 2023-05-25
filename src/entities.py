@@ -55,7 +55,7 @@ class Player:
         self.animation_manager.set_state('jump')
         self.direction.y = self.jump_force
         self.is_in_air = True
-    
+
     def attack(self):
         self.animation_manager.set_state('attack')
 
@@ -101,7 +101,6 @@ class Door:
             self.animation_manager.set_state('jump')
 
 
-
 class Box:
     def __init__(self, screen, position) -> None:
         self.screen = screen
@@ -111,14 +110,14 @@ class Box:
         self.set_position(position)
 
         self.animations = {
-            'idle' : graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'idle.png')), (self.width, self.height), 1),
-            'hit' : graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'hit.png')), (self.width, self.height), 1),
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'idle.png')), (self.width, self.height), 1),
+            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'hit.png')), (self.width, self.height), 1),
         }
         self.animation_manager = graphics.AnimationManager(self.animations)
-    
+
     def set_position(self, position):
         self.rect.x, self.rect.y = position
-    
+
     def render(self):
         self.surface = self.animation_manager.get_current_animation().get_frame()
 
@@ -128,6 +127,6 @@ class Box:
     def update(self):
         self.animation_manager.update()
         self.animate()
-    
+
     def animate(self):
         self.animation_manager.set_state('idle')

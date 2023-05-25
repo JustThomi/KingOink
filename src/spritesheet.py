@@ -15,7 +15,7 @@ class Spritesheet:
 
     def fetch_frame(self, current_frame, row=0, scale=2):
         self.frame = pygame.Surface(
-            (self.width, self.height)).convert_alpha()
+            (self.width, self.height), pygame.SRCALPHA).convert_alpha()
         self.frame.blit(self.sheet, (0, 0),
                         (self.width * current_frame, self.height * row, self.width, self.height))
         self.frame = pygame.transform.scale(
@@ -69,12 +69,12 @@ class TerrainTiles:
             'T': self.background_tileset.fetch_frame(7, 2),
             'U': self.background_tileset.fetch_frame(8, 2),
 
-            'V' : self.background_tileset.fetch_frame(5, 1),
-            'W' : self.background_tileset.fetch_frame(5, 2),
-            'X' : self.background_tileset.fetch_frame(5, 3),
+            'V': self.background_tileset.fetch_frame(5, 1),
+            'W': self.background_tileset.fetch_frame(5, 2),
+            'X': self.background_tileset.fetch_frame(5, 3),
 
-            'Y' : self.background_tileset.fetch_frame(11, 1),
-            'Z' : self.background_tileset.fetch_frame(10, 2)
+            'Y': self.background_tileset.fetch_frame(11, 1),
+            'Z': self.background_tileset.fetch_frame(10, 2)
         }
 
 
@@ -91,10 +91,10 @@ class DecorationTiles:
         }
 
         self.platforms = {
-            'P' : self.decorations_tileset.fetch_frame(2, 2),
-            'L' : self.decorations_tileset.fetch_frame(3, 2),
-            'A' : self.decorations_tileset.fetch_frame(4, 2),
-            'T' : self.decorations_tileset.fetch_frame(5, 2),
+            'P': self.decorations_tileset.fetch_frame(2, 2),
+            'L': self.decorations_tileset.fetch_frame(3, 2),
+            'A': self.decorations_tileset.fetch_frame(4, 2),
+            'T': self.decorations_tileset.fetch_frame(5, 2),
         }
 
 # reference for level building untill I take the time to make a better system
