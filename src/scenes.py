@@ -46,21 +46,8 @@ class Level:
         self.map = []
         self.collidables = []
 
-        self.title = pygame.image.load(
-            os.path.join('assets', 'KingOink_title.png'))
-        self.title = pygame.transform.scale(
-            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
-
-        self.enter_door = entities.Door('enter', self.screen, (500, 400))
-        self.exit_door = entities.Door('exit', self.screen, (2100, 400))
-        self.box = entities.Box(self.screen, (600, 480))
-
-        self.map.append(self.enter_door)
-        self.map.append(self.exit_door)
-        # box collide test
-        self.map.append(self.box)
-        self.collidables.append(self.box)
-
+        self.setup_tutorial()
+        self.setup_level()
         self.load()
 
     def load(self):
@@ -95,6 +82,49 @@ class Level:
                         self.decoratione_tiles.platforms[tile], position, (settings.tile_size, settings.tile_size))
                     self.map.append(t)
                     self.collidables.append(t)
+
+    def setup_tutorial(self):
+        self.title = pygame.image.load(
+            os.path.join('assets', 'KingOink_title.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
+
+        self.a_key = pygame.image.load(
+            os.path.join('assets', 'buttons', 'a_key.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
+
+        self.w_key = pygame.image.load(
+            os.path.join('assets', 'buttons', 'w_key.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
+
+        self.d_key = pygame.image.load(
+            os.path.join('assets', 'buttons', 'd_key.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
+
+        self.space_key = pygame.image.load(
+            os.path.join('assets', 'buttons', 'space_key.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
+
+        self.map.append(self.a_key)
+        self.map.append(self.d_key)
+        self.map.append(self.w_key)
+        self.map.append(self.space_key)
+
+    def setup_level(self):
+        self.enter_door = entities.Door('enter', self.screen, (500, 400))
+        self.exit_door = entities.Door('exit', self.screen, (2100, 400))
+        self.box = entities.Box(self.screen, (600, 480))
+
+        self.map.append(self.enter_door)
+        self.map.append(self.exit_door)
+
+        # box collide test
+        self.map.append(self.box)
+        self.collidables.append(self.box)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -164,6 +194,12 @@ class Level:
             self.scroll_speed = 0
             self.player.velocity = self.player_vel
 
+    def show_tuttorial(self):
+        self.screen.blit(self.title, (self.screen.get_width() /
+                                      2 - self.title.get_width()/2, 200))
+        self.screen.blit(self.a_key, (self.screen.get_width() /
+                                      2 - self.title.get_width()/2, 200))
+
     def update(self):
         self.render()
         self.scroll_map()
@@ -183,8 +219,7 @@ class Level:
             self.screen.blit(tile.surface, tile.rect)
 
         if self.is_tutorial:
-            self.screen.blit(self.title, (self.screen.get_width() /
-                                          2 - self.title.get_width()/2, 200))
+            self.show_tuttorial()
 
         self.enter_door.render()
         self.exit_door.render()
