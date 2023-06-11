@@ -25,9 +25,9 @@ class Animation:
     def next_frame(self):
         if self.current_frame == self.length:
             if not self.loop:
-                self.reset()
                 return 'done'
-            self.current_frame = 0
+            else:
+                self.current_frame = 0
         else:
             self.current_frame += 1
 
@@ -50,17 +50,19 @@ class Animation:
 class AnimationManager:
     def __init__(self, animations) -> None:
         self.animations = animations
+        self.animation_state = ''
         self.state = 'idle'
-        self.previous_state = ''
 
     def set_state(self, state):
-        self.previous_state = self.state
+        self.animation_state = ''
         self.state = state
 
     def get_current_animation(self):
         return self.animations[self.state]
 
     def update(self):
-        animation_status = self.animations[self.state].update()
-        if animation_status == 'done':
-            self.set_state(self.previous_state)
+        if self.animations[self.state].loop:
+            self.animations[self.state].update()
+        elif self.animation_state != 'done':
+            self.animation_state = self.animations[self.state].update()
+

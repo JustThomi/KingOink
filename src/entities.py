@@ -8,7 +8,7 @@ class Player:
         self.health = 100
         self.velocity = 5
         self.direction = pygame.math.Vector2(0, 0)
-        self.jump_force = -20
+        self.jump_force = -18
         self.is_in_air = True
 
         self.screen = screen
@@ -81,7 +81,6 @@ class Door:
         self.animation_manager = graphics.AnimationManager(self.animations)
 
     def update(self):
-        self.animation_manager.update()
         self.animate()
 
     def render(self):
@@ -91,14 +90,7 @@ class Door:
         self.screen.blit(self.surface, (self.rect.x, self.rect.y))
 
     def animate(self):
-        # temp var
-        cond = False
-        self.animation_manager.set_state('idle')
-
-        if cond:
-            self.animation_manager.set_state('open')
-        if cond:
-            self.animation_manager.set_state('jump')
+        self.animation_manager.update()
 
 
 class Box:

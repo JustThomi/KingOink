@@ -91,28 +91,20 @@ class Level:
 
         self.a_key = pygame.image.load(
             os.path.join('assets', 'buttons', 'a_key.png'))
-        self.title = pygame.transform.scale(
-            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 
         self.w_key = pygame.image.load(
             os.path.join('assets', 'buttons', 'w_key.png'))
-        self.title = pygame.transform.scale(
-            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 
         self.d_key = pygame.image.load(
             os.path.join('assets', 'buttons', 'd_key.png'))
-        self.title = pygame.transform.scale(
-            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 
         self.space_key = pygame.image.load(
             os.path.join('assets', 'buttons', 'space_key.png'))
-        self.title = pygame.transform.scale(
-            self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 
-        self.map.append(self.a_key)
-        self.map.append(self.d_key)
-        self.map.append(self.w_key)
-        self.map.append(self.space_key)
+        # self.map.append(self.a_key)
+        # self.map.append(self.d_key)
+        # self.map.append(self.w_key)
+        # self.map.append(self.space_key)
 
     def setup_level(self):
         self.enter_door = entities.Door('enter', self.screen, (500, 400))
