@@ -28,12 +28,13 @@ class Pause:
 
 
 class Level:
-    def __init__(self, screen, layout, deco_layout, tutorial) -> None:
+    def __init__(self, screen, layout, deco_layout, tutorial, swap_level) -> None:
         self.layout = layout
         self.deco_layout = deco_layout
         self.screen = screen
         self.is_tutorial = tutorial
         self.level_cleared = False
+        self.swap_level = swap_level
 
         self.entities = []
         self.player = entities.Player(screen)
@@ -144,7 +145,8 @@ class Level:
             if not self.level_cleared:
                 self.exit_door.animation_manager.set_state('open')
                 self.level_cleared = not self.level_cleared
-                # TODO "swap levels here"
+
+                self.swap_level()
 
     def vertical_collision(self):
         for entity in self.entities:

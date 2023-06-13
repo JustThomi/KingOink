@@ -1,6 +1,6 @@
 tile_size = 64
 
-menu_level = ["                                             ",
+tutorial_level = ["                                             ",
               "      RPPPPPPPPPPPZPPPPPPPPPPPPPPPPS         ",
               "      NABBBBBBBBBBWBBBBBBBBBBBBBBBCM         ",
               "      NDEEEEEEEEEEWEEEEEEEEEEEEEEEFM         ",
@@ -11,7 +11,7 @@ menu_level = ["                                             ",
               "      TKKKKKKKKKKKYKKKKKKKKKKKKKKKKU         ",
               "                                             ", ]
 
-menu_decor = ["                                             ",
+tutorial_decore = ["                                             ",
               "                                             ",
               "                                             ",
               "                                             ",

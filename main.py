@@ -12,15 +12,19 @@ class Game:
         self.lose_scene = scenes.Lose()
         self.pause_scene = scenes.Pause()
         self.tutorial = scenes.Level(
-            screen, settings.menu_level, settings.menu_decor, True)
+            screen, settings.tutorial_level, settings.tutorial_decore, True, self.swap_level)
         self.level = scenes.Level(
-            screen, settings.menu_level, settings.menu_decor, False)
+            screen, settings.tutorial_level, settings.tutorial_decore, False, self.swap_level)
 
     def render(self):
         self.screen.fill((63, 56, 81))
 
     def set_state(self, state):
         self.state = state
+
+    # temp function to test level swaping
+    def swap_level(self):
+        self.state = 'game'
 
     def update(self):
         match self.state:
