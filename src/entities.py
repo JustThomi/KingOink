@@ -22,7 +22,7 @@ class Player:
             'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'run.png')), (self.width, self.height), 7),
             'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'jump.png')), (self.width, self.height), 1),
             'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'fall.png')), (self.width, self.height), 1),
-            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 8, False)
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 5, False)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -64,13 +64,13 @@ class Player:
 
 
 class Door:
-    def __init__(self, state, screen, pos) -> None:
+    def __init__(self, state, screen, pos, change_scene = None) -> None:
         self.state = state
         self.screen = screen
         self.width, self.height = (46, 56)
         self.surface = pygame.Surface((self.width, self.height))
-        # hardcoded pos for testing
         self.rect = pygame.Rect(pos, (self.width, self.height))
+        self.change_scene = change_scene
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')), (self.width, self.height), 1),
@@ -80,8 +80,15 @@ class Door:
 
         self.animation_manager = graphics.AnimationManager(self.animations)
 
+    def check_enter(self):
+        if self.animation_manager.state is 'open' and self.animation_manager.animation_status is 'done':
+            self.change_scene()
+
     def update(self):
         self.animate()
+
+        if self.state is 'exit':
+            self.check_enter()
 
     def render(self):
         self.surface = self.animation_manager.get_current_animation().get_frame()

@@ -47,9 +47,10 @@ class Level:
         self.map = []
         self.collidables = []
 
-        self.setup_tutorial()
-        self.setup_level()
         self.load()
+        self.setup_level()
+        if self.is_tutorial:
+            self.setup_tutorial()
 
     def load(self):
         for row_id, row in enumerate(self.layout):
@@ -89,27 +90,20 @@ class Level:
             os.path.join('assets', 'KingOink_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
+        
+        self.a_key = spritesheet.Tile(self.decoratione_tiles.hints['L'], (600, 400), self.decoratione_tiles.hints['L'].get_size())
+        self.d_key = spritesheet.Tile(self.decoratione_tiles.hints['R'], (680, 400), self.decoratione_tiles.hints['R'].get_size())
+        self.w_key = spritesheet.Tile(self.decoratione_tiles.hints['J'], (640, 350), self.decoratione_tiles.hints['J'].get_size())
+        self.space_key = spritesheet.Tile(self.decoratione_tiles.hints['A'], (1000, 400), self.decoratione_tiles.hints['A'].get_size())
 
-        self.a_key = pygame.image.load(
-            os.path.join('assets', 'buttons', 'a_key.png'))
-
-        self.w_key = pygame.image.load(
-            os.path.join('assets', 'buttons', 'w_key.png'))
-
-        self.d_key = pygame.image.load(
-            os.path.join('assets', 'buttons', 'd_key.png'))
-
-        self.space_key = pygame.image.load(
-            os.path.join('assets', 'buttons', 'space_key.png'))
-
-        # self.map.append(self.a_key)
-        # self.map.append(self.d_key)
-        # self.map.append(self.w_key)
-        # self.map.append(self.space_key)
+        self.map.append(self.a_key)
+        self.map.append(self.d_key)
+        self.map.append(self.w_key)
+        self.map.append(self.space_key)
 
     def setup_level(self):
         self.enter_door = entities.Door('enter', self.screen, (500, 400))
-        self.exit_door = entities.Door('exit', self.screen, (2100, 400))
+        self.exit_door = entities.Door('exit', self.screen, (2100, 400), self.swap_level)
         self.box = entities.Box(self.screen, (600, 480))
 
         self.map.append(self.enter_door)
@@ -145,8 +139,6 @@ class Level:
             if not self.level_cleared:
                 self.exit_door.animation_manager.set_state('open')
                 self.level_cleared = not self.level_cleared
-
-                self.swap_level()
 
     def vertical_collision(self):
         for entity in self.entities:
@@ -188,10 +180,8 @@ class Level:
             self.scroll_speed = 0
             self.player.velocity = self.player_vel
 
-    def show_tuttorial(self):
+    def show_tutorial(self):
         self.screen.blit(self.title, (self.screen.get_width() /
-                                      2 - self.title.get_width()/2, 200))
-        self.screen.blit(self.a_key, (self.screen.get_width() /
                                       2 - self.title.get_width()/2, 200))
 
     def update(self):
@@ -213,7 +203,7 @@ class Level:
             self.screen.blit(tile.surface, tile.rect)
 
         if self.is_tutorial:
-            self.show_tuttorial()
+            self.show_tutorial()
 
         self.enter_door.render()
         self.exit_door.render()

@@ -1,5 +1,5 @@
 import pygame
-import src.graphics as graphics
+import src.settings as settings
 import os
 
 
@@ -10,7 +10,7 @@ class Spritesheet:
         self.width, self.height = size
         self.length = (self.sheet.get_width() / self.width) - 1
 
-    def get_lenght(self):
+    def get_length(self):
         return self.length
 
     def fetch_frame(self, current_frame, row=0, scale=2):
@@ -95,6 +95,13 @@ class DecorationTiles:
             'L': self.decorations_tileset.fetch_frame(3, 2),
             'A': self.decorations_tileset.fetch_frame(4, 2),
             'T': self.decorations_tileset.fetch_frame(5, 2),
+        }
+
+        self.hints = {
+            'L': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'a_key.png')), (settings.tile_size, settings.tile_size)),
+            'R': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'd_key.png')), (settings.tile_size, settings.tile_size)),
+            'J': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'w_key.png')), (settings.tile_size, settings.tile_size)),
+            'A': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'space_key.png')), (settings.tile_size, settings.tile_size)),
         }
 
 # reference for level building untill I take the time to make a better system
