@@ -43,7 +43,7 @@ class Player:
         self.screen.blit(self.surface, (self.rect.x - 50, self.rect.y - 40))
 
         # testing rects
-        # white = pygame.Surface((self.width, self.height))
+        # white = pygame.Surface((self.rect.width, self.rect.height))
         # pygame.draw.rect(white, (255, 255, 255), self.rect)
         # self.screen.blit(white, self.rect)
 
@@ -69,7 +69,7 @@ class Door:
         self.screen = screen
         self.width, self.height = (46, 56)
         self.surface = pygame.Surface((self.width, self.height))
-        self.rect = pygame.Rect(pos, (self.width, self.height))
+        self.rect = pygame.Rect(pos, (self.width * 2, self.height * 2))
         self.change_scene = change_scene
 
         self.animations = {
@@ -81,13 +81,13 @@ class Door:
         self.animation_manager = graphics.AnimationManager(self.animations)
 
     def check_enter(self):
-        if self.animation_manager.state is 'open' and self.animation_manager.animation_status is 'done':
+        if self.animation_manager.state == 'open' and self.animation_manager.animation_status == 'done':
             self.change_scene()
 
     def update(self):
         self.animate()
 
-        if self.state is 'exit':
+        if self.state == 'exit':
             self.check_enter()
 
     def render(self):
