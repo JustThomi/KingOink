@@ -5,9 +5,22 @@ import src.settings as settings
 import src.entities as entities
 
 
-class Lose:
-    def __init__(self) -> None:
+class Win:
+    def __init__(self, screen) -> None:
+        self.screen = screen
+        self.background = pygame.Rect((0, 0), self.screen.get_size())
+
+    def update(self):
         pass
+
+    def render(self):
+        pass
+
+
+class Lose:
+    def __init__(self, screen) -> None:
+        self.screen = screen
+        self.background = pygame.Rect((0, 0), self.screen.get_size())
 
     def update(self):
         pass
@@ -17,14 +30,18 @@ class Lose:
 
 
 class Pause:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, screen) -> None:
+        self.screen = screen
+        self.background = pygame.Rect((0, 0), self.screen.get_size())
+        self.font = pygame.font.SysFont('Arial', 32)
+        self.pause_text = self.font.render('Paused', False, (255, 255, 255))
 
     def update(self):
-        pass
+        self.render()
 
     def render(self):
-        pass
+        pygame.draw.rect(self.screen, (26, 26, 26), self.background)
+        self.screen.blit(self.pause_text, (self.screen.get_width()/2 - self.pause_text.get_width()/2, self.screen.get_height()/2))
 
 
 class Level:

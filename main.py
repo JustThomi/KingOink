@@ -23,14 +23,21 @@ class Game:
                 screen, settings.level_5, settings.level_5_decore, False, self.next_level),
         ]
 
-        self.lose_scene = scenes.Lose()
-        self.pause_scene = scenes.Pause()
+        self.lose_scene = scenes.Lose(screen)
+        self.pause_scene = scenes.Pause(screen)
+        self.win_scene = scenes.Win(screen)
 
     def render(self):
         self.screen.fill((63, 56, 81))
 
     def set_state(self, state):
         self.state = state
+    
+    def pause(self):
+        if self.state == 'game':
+            self.set_state('pause')
+        else:
+            self.set_state('game')
 
     def next_level(self):
         if self.current_level + 1 < len(self.levels):
@@ -48,11 +55,11 @@ class Game:
             case 'pause':
                 self.pause_scene.update()
             case 'win':
-                self.pause_scene.update()
-
+                self.win_scene.update()
 
 def main():
     pygame.init()
+    pygame.font.init()
     pygame.display.set_caption('Kings')
 
     screen_height, screen_width = (1280, 720)
@@ -67,6 +74,10 @@ def main():
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
                 exit()
+
+            if e.type == pygame.KEYDOWN:
+                if e.key == pygame.K_ESCAPE:
+                    game.pause()
 
         game.update()
         pygame.display.update()
