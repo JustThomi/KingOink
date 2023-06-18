@@ -10,6 +10,8 @@ class Player:
         self.direction = pygame.math.Vector2(0, 0)
         self.jump_force = -18
         self.is_in_air = True
+        self.is_attack_on_cooldown = False
+        self.attack_cooldown = 15
 
         self.screen = screen
         self.width, self.height = (78, 58)
@@ -30,6 +32,7 @@ class Player:
 
     def update(self):
         self.move()
+        self.handle_cooldown()
         self.animation_manager.update()
 
     def render(self):
@@ -47,6 +50,17 @@ class Player:
         # pygame.draw.rect(white, (255, 255, 255), self.rect)
         # self.screen.blit(white, self.rect)
 
+    def reset_cooldown(self):
+            self.attack_cooldown = 15
+            self.is_attack_on_cooldown = False
+
+    def handle_cooldown(self):
+        if self.is_attack_on_cooldown:
+            if self.attack_cooldown > 0:
+                self.attack_cooldown -= 1
+            else:
+                self.reset_cooldown()
+
     def gravity(self):
         self.direction.y += 0.9
         self.rect.y += self.direction.y
@@ -57,7 +71,9 @@ class Player:
         self.is_in_air = True
 
     def attack(self):
-        self.animation_manager.set_state('attack')
+        if not self.is_attack_on_cooldown:
+            self.animation_manager.set_state('attack')
+            self.is_attack_on_cooldown = True
 
     def move(self):
         self.rect.x += self.direction.x * self.velocity
