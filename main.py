@@ -12,7 +12,15 @@ class Game:
             scenes.Level(
                 screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level),
             scenes.Level(
-                screen, settings.tutorial_level, settings.tutorial_decore, False, self.next_level)
+                screen, settings.level_1, settings.level_1_decore, False, self.next_level),
+            scenes.Level(
+                screen, settings.level_2, settings.level_2_decore, False, self.next_level),
+            scenes.Level(
+                screen, settings.level_3, settings.level_3_decore, False, self.next_level),
+            scenes.Level(
+                screen, settings.level_4, settings.level_4_decore, False, self.next_level),
+            scenes.Level(
+                screen, settings.level_5, settings.level_5_decore, False, self.next_level),
         ]
 
         self.lose_scene = scenes.Lose()
