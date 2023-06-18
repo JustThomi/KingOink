@@ -6,15 +6,17 @@ import src.settings as settings
 class Game:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.state = 'tutorial'
+        self.state = 'game'
+        self.current_level = 0
+        self.levels = [
+            scenes.Level(
+                screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level),
+            scenes.Level(
+                screen, settings.tutorial_level, settings.tutorial_decore, False, self.next_level)
+        ]
 
-        # scenes
         self.lose_scene = scenes.Lose()
         self.pause_scene = scenes.Pause()
-        self.tutorial = scenes.Level(
-            screen, settings.tutorial_level, settings.tutorial_decore, True, self.swap_level)
-        self.level = scenes.Level(
-            screen, settings.tutorial_level, settings.tutorial_decore, False, self.swap_level)
 
     def render(self):
         self.screen.fill((63, 56, 81))
@@ -22,21 +24,23 @@ class Game:
     def set_state(self, state):
         self.state = state
 
-    # temp function to test level swaping
-    def swap_level(self):
-        self.state = 'game'
+    def next_level(self):
+        if self.current_level + 1 < len(self.levels):
+            self.current_level += 1
+        else:
+            self.set_state('win')
 
     def update(self):
         match self.state:
             case 'game':
                 self.render()
-                self.level.update()
+                self.levels[self.current_level].update()
             case 'lose':
-                self.render()
                 self.lose_scene.update()
-            case 'tutorial':
-                self.render()
-                self.tutorial.update()
+            case 'pause':
+                self.pause_scene.update()
+            case 'win':
+                self.pause_scene.update()
 
 
 def main():
