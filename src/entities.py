@@ -51,8 +51,8 @@ class Player:
         # self.screen.blit(white, self.rect)
 
     def reset_cooldown(self):
-            self.attack_cooldown = 15
-            self.is_attack_on_cooldown = False
+        self.attack_cooldown = 15
+        self.is_attack_on_cooldown = False
 
     def handle_cooldown(self):
         if self.is_attack_on_cooldown:
@@ -80,7 +80,7 @@ class Player:
 
 
 class Door:
-    def __init__(self, state, screen, pos, change_scene = None) -> None:
+    def __init__(self, state, screen, pos, change_scene=None) -> None:
         self.state = state
         self.screen = screen
         self.width, self.height = (46, 56)

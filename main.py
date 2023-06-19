@@ -32,7 +32,7 @@ class Game:
 
     def set_state(self, state):
         self.state = state
-    
+
     def pause(self):
         if self.state == 'game':
             self.set_state('pause')
@@ -56,6 +56,7 @@ class Game:
                 self.pause_scene.update()
             case 'win':
                 self.win_scene.update()
+
 
 def main():
     pygame.init()

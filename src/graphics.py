@@ -75,4 +75,3 @@ class AnimationManager:
                     self.next_state = ''
             else:
                 self.animation_status = self.animations[self.state].update()
-

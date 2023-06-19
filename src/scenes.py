@@ -4,6 +4,8 @@ import src.spritesheet as spritesheet
 import src.settings as settings
 import src.entities as entities
 
+# I should have made a parent class but oh well
+
 
 class Win:
     def __init__(self, screen) -> None:
@@ -20,28 +22,47 @@ class Win:
 class Lose:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.background = pygame.Rect((0, 0), self.screen.get_size())
 
-    def update(self):
-        pass
+        self.title = pygame.image.load(
+            os.path.join('assets', 'lose_title.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
 
-    def render(self):
-        pass
-
-
-class Pause:
-    def __init__(self, screen) -> None:
-        self.screen = screen
-        self.background = pygame.Rect((0, 0), self.screen.get_size())
-        self.font = pygame.font.SysFont('Arial', 32)
-        self.pause_text = self.font.render('Paused', False, (255, 255, 255))
+        self.background = pygame.Surface(
+            self.screen.get_size()).convert()
+        self.background.set_alpha(100)
+        self.background.fill((63, 56, 81))
 
     def update(self):
         self.render()
 
     def render(self):
-        pygame.draw.rect(self.screen, (26, 26, 26), self.background)
-        self.screen.blit(self.pause_text, (self.screen.get_width()/2 - self.pause_text.get_width()/2, self.screen.get_height()/2))
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.title, (self.screen.get_width() /
+                         2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
+
+
+class Pause:
+    def __init__(self, screen) -> None:
+        self.screen = screen
+
+        self.title = pygame.image.load(
+            os.path.join('assets', 'pause_title.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
+
+        self.background = pygame.Surface(
+            self.screen.get_size()).convert()
+        self.background.set_alpha(100)
+        self.background.fill((63, 56, 81))
+
+    def update(self):
+        self.render()
+
+    def render(self):
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.title, (self.screen.get_width() /
+                         2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
 
 
 class Level:
@@ -107,11 +128,15 @@ class Level:
             os.path.join('assets', 'KingOink_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
-        
-        self.a_key = spritesheet.Tile(self.decoratione_tiles.hints['L'], (600, 400), self.decoratione_tiles.hints['L'].get_size())
-        self.d_key = spritesheet.Tile(self.decoratione_tiles.hints['R'], (680, 400), self.decoratione_tiles.hints['R'].get_size())
-        self.w_key = spritesheet.Tile(self.decoratione_tiles.hints['J'], (640, 350), self.decoratione_tiles.hints['J'].get_size())
-        self.space_key = spritesheet.Tile(self.decoratione_tiles.hints['A'], (1000, 400), self.decoratione_tiles.hints['A'].get_size())
+
+        self.a_key = spritesheet.Tile(
+            self.decoratione_tiles.hints['L'], (600, 400), self.decoratione_tiles.hints['L'].get_size())
+        self.d_key = spritesheet.Tile(
+            self.decoratione_tiles.hints['R'], (680, 400), self.decoratione_tiles.hints['R'].get_size())
+        self.w_key = spritesheet.Tile(
+            self.decoratione_tiles.hints['J'], (640, 350), self.decoratione_tiles.hints['J'].get_size())
+        self.space_key = spritesheet.Tile(
+            self.decoratione_tiles.hints['A'], (1000, 400), self.decoratione_tiles.hints['A'].get_size())
 
         self.map.append(self.a_key)
         self.map.append(self.d_key)
@@ -120,7 +145,8 @@ class Level:
 
     def setup_level(self):
         self.enter_door = entities.Door('enter', self.screen, (500, 400))
-        self.exit_door = entities.Door('exit', self.screen, (2100, 400), self.swap_level)
+        self.exit_door = entities.Door(
+            'exit', self.screen, (2100, 400), self.swap_level)
         self.box = entities.Box(self.screen, (600, 480))
 
         self.map.append(self.enter_door)
