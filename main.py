@@ -23,7 +23,7 @@ class Game:
                 screen, settings.level_5, settings.level_5_decore, False, self.next_level, self.set_state),
         ]
 
-        self.lose_scene = scenes.Lose(screen)
+        self.lose_scene = scenes.Lose(screen, self)
         self.pause_scene = scenes.Pause(screen)
         self.win_scene = scenes.Win(screen)
 
@@ -38,6 +38,23 @@ class Game:
             self.set_state('pause')
         else:
             self.set_state('game')
+
+    # not a good solutionw
+    def reset_levels(self):
+        self.levels = [
+            scenes.Level(
+                self.screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level, self.set_state),
+            scenes.Level(
+                self.screen, settings.level_1, settings.level_1_decore, False, self.next_level, self.set_state),
+            scenes.Level(
+                self.screen, settings.level_2, settings.level_2_decore, False, self.next_level, self.set_state),
+            scenes.Level(
+                self.screen, settings.level_3, settings.level_3_decore, False, self.next_level, self.set_state),
+            scenes.Level(
+                self.screen, settings.level_4, settings.level_4_decore, False, self.next_level, self.set_state),
+            scenes.Level(
+                self.screen, settings.level_5, settings.level_5_decore, False, self.next_level, self.set_state),
+        ]
 
     def next_level(self):
         if self.current_level + 1 < len(self.levels):
@@ -78,7 +95,10 @@ def main():
 
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
-                    game.pause()
+                    if game.state == 'win':
+                        exit()
+                    else:
+                        game.pause()
 
         game.update()
         pygame.display.update()

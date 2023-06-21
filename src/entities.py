@@ -65,7 +65,7 @@ class Player:
                 self.attack_cooldown -= 1
             else:
                 self.reset_cooldown()
-    
+
     def is_dead(self):
         return self.health <= 0
 
@@ -103,6 +103,8 @@ class Door:
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
+        if self.state == 'enter':
+            self.animation_manager.state = 'close'
 
     def check_enter(self):
         if self.animation_manager.state == 'open' and self.animation_manager.animation_status == 'done':

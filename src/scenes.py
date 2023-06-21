@@ -10,13 +10,15 @@ import src.entities as entities
 class Win:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.font = pygame.font.Font(os.path.join('assets', 'Monocraft.ttf'), 32)
+        self.font = pygame.font.Font(
+            os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
-            os.path.join('assets', 'pause_title.png'))
+            os.path.join('assets', 'winner_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
-        self.credits = self.font.render('made by WildDev using pygame-ce', False, (255, 255, 255))
+        self.credits = self.font.render(
+            'made by WildDev using pygame-ce', False, (255, 255, 255))
 
         self.background = pygame.Surface(
             self.screen.get_size()).convert()
@@ -28,33 +30,47 @@ class Win:
 
     def render(self):
         self.screen.blit(self.background, (0, 0))
-        self.screen.blit(self.credits, (self.screen.get_width() / 2 - self.unpause_hint.get_width() / 2, self.screen.get_height() / 2 + 100))
+        self.screen.blit(self.credits, (self.screen.get_width(
+        ) / 2 - self.credits.get_width() / 2, self.screen.get_height() / 2 + 100))
         self.screen.blit(self.title, (self.screen.get_width() /
                          2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
 
 
-
+# very bad having 'game' here but I'll leave it for now
 class Lose:
-    def __init__(self, screen) -> None:
+    def __init__(self, screen, game) -> None:
         self.screen = screen
-        self.font = pygame.font.Font(os.path.join('assets', 'Monocraft.ttf'), 32)
+        self.game = game
+        self.font = pygame.font.Font(
+            os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
             os.path.join('assets', 'lose_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
-        self.hint = self.font.render('press esc to retry', False, (255, 255, 255))
-        
+        self.hint = self.font.render(
+            'press ENTER to retry', False, (255, 255, 255))
+
         self.background = pygame.Surface(
             self.screen.get_size()).convert()
         self.background.set_alpha(100)
         self.background.fill((63, 56, 81))
 
+    def input(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_RETURN]:
+            self.game.reset_levels()
+            self.game.set_state('game')
+
     def update(self):
+        self.input()
         self.render()
 
     def render(self):
         self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.hint, (self.screen.get_width(
+        ) / 2 - self.hint.get_width() / 2, self.screen.get_height() / 2 + 100))
         self.screen.blit(self.title, (self.screen.get_width() /
                          2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
 
@@ -62,13 +78,15 @@ class Lose:
 class Pause:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.font = pygame.font.Font(os.path.join('assets', 'Monocraft.ttf'), 32)
+        self.font = pygame.font.Font(
+            os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
             os.path.join('assets', 'pause_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
-        self.unpause_hint = self.font.render('press ESC to unpause', False, (255, 255, 255))
+        self.unpause_hint = self.font.render(
+            'press ESC to unpause', False, (255, 255, 255))
 
         self.background = pygame.Surface(
             self.screen.get_size()).convert()
@@ -80,7 +98,8 @@ class Pause:
 
     def render(self):
         self.screen.blit(self.background, (0, 0))
-        self.screen.blit(self.unpause_hint, (self.screen.get_width() / 2 - self.unpause_hint.get_width() / 2, self.screen.get_height() / 2 + 100))
+        self.screen.blit(self.unpause_hint, (self.screen.get_width(
+        ) / 2 - self.unpause_hint.get_width() / 2, self.screen.get_height() / 2 + 100))
         self.screen.blit(self.title, (self.screen.get_width() /
                          2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
 
