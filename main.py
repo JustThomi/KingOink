@@ -10,17 +10,17 @@ class Game:
         self.current_level = 0
         self.levels = [
             scenes.Level(
-                screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level),
+                screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level, self.set_state),
             scenes.Level(
-                screen, settings.level_1, settings.level_1_decore, False, self.next_level),
+                screen, settings.level_1, settings.level_1_decore, False, self.next_level, self.set_state),
             scenes.Level(
-                screen, settings.level_2, settings.level_2_decore, False, self.next_level),
+                screen, settings.level_2, settings.level_2_decore, False, self.next_level, self.set_state),
             scenes.Level(
-                screen, settings.level_3, settings.level_3_decore, False, self.next_level),
+                screen, settings.level_3, settings.level_3_decore, False, self.next_level, self.set_state),
             scenes.Level(
-                screen, settings.level_4, settings.level_4_decore, False, self.next_level),
+                screen, settings.level_4, settings.level_4_decore, False, self.next_level, self.set_state),
             scenes.Level(
-                screen, settings.level_5, settings.level_5_decore, False, self.next_level),
+                screen, settings.level_5, settings.level_5_decore, False, self.next_level, self.set_state),
         ]
 
         self.lose_scene = scenes.Lose(screen)
@@ -61,7 +61,7 @@ class Game:
 def main():
     pygame.init()
     pygame.font.init()
-    pygame.display.set_caption('Kings')
+    pygame.display.set_caption('King Oink')
 
     screen_height, screen_width = (1280, 720)
     screen = pygame.display.set_mode((screen_height, screen_width))

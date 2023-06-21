@@ -10,24 +10,41 @@ import src.entities as entities
 class Win:
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.background = pygame.Rect((0, 0), self.screen.get_size())
+        self.font = pygame.font.Font(os.path.join('assets', 'Monocraft.ttf'), 32)
+
+        self.title = pygame.image.load(
+            os.path.join('assets', 'pause_title.png'))
+        self.title = pygame.transform.scale(
+            self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
+        self.credits = self.font.render('made by WildDev using pygame-ce', False, (255, 255, 255))
+
+        self.background = pygame.Surface(
+            self.screen.get_size()).convert()
+        self.background.set_alpha(100)
+        self.background.fill((63, 56, 81, 50))
 
     def update(self):
-        pass
+        self.render()
 
     def render(self):
-        pass
+        self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.credits, (self.screen.get_width() / 2 - self.unpause_hint.get_width() / 2, self.screen.get_height() / 2 + 100))
+        self.screen.blit(self.title, (self.screen.get_width() /
+                         2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
+
 
 
 class Lose:
     def __init__(self, screen) -> None:
         self.screen = screen
+        self.font = pygame.font.Font(os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
             os.path.join('assets', 'lose_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
-
+        self.hint = self.font.render('press esc to retry', False, (255, 255, 255))
+        
         self.background = pygame.Surface(
             self.screen.get_size()).convert()
         self.background.set_alpha(100)
@@ -45,28 +62,31 @@ class Lose:
 class Pause:
     def __init__(self, screen) -> None:
         self.screen = screen
+        self.font = pygame.font.Font(os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
             os.path.join('assets', 'pause_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
+        self.unpause_hint = self.font.render('press ESC to unpause', False, (255, 255, 255))
 
         self.background = pygame.Surface(
             self.screen.get_size()).convert()
         self.background.set_alpha(100)
-        self.background.fill((63, 56, 81))
+        self.background.fill((63, 56, 81, 50))
 
     def update(self):
         self.render()
 
     def render(self):
         self.screen.blit(self.background, (0, 0))
+        self.screen.blit(self.unpause_hint, (self.screen.get_width() / 2 - self.unpause_hint.get_width() / 2, self.screen.get_height() / 2 + 100))
         self.screen.blit(self.title, (self.screen.get_width() /
                          2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
 
 
 class Level:
-    def __init__(self, screen, layout, deco_layout, tutorial, swap_level) -> None:
+    def __init__(self, screen, layout, deco_layout, tutorial, swap_level, set_state) -> None:
         self.layout = layout
         self.deco_layout = deco_layout
         self.screen = screen
@@ -75,7 +95,7 @@ class Level:
         self.swap_level = swap_level
 
         self.entities = []
-        self.player = entities.Player(screen)
+        self.player = entities.Player(screen, set_state)
         self.entities.append(self.player)
         self.scroll_speed = 0
         self.player_vel = self.player.velocity

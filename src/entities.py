@@ -4,7 +4,7 @@ import src.graphics as graphics
 
 
 class Player:
-    def __init__(self, screen):
+    def __init__(self, screen, set_state):
         self.health = 100
         self.velocity = 5
         self.direction = pygame.math.Vector2(0, 0)
@@ -30,10 +30,15 @@ class Player:
         self.animation_manager = graphics.AnimationManager(self.animations)
         self.flip_sprite = False
 
+        self.set_state = set_state
+
     def update(self):
         self.move()
         self.handle_cooldown()
         self.animation_manager.update()
+
+        if self.is_dead():
+            self.set_state('lose')
 
     def render(self):
         # load and set correct direction of frame
@@ -60,6 +65,9 @@ class Player:
                 self.attack_cooldown -= 1
             else:
                 self.reset_cooldown()
+    
+    def is_dead(self):
+        return self.health <= 0
 
     def gravity(self):
         self.direction.y += 0.9
