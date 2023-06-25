@@ -87,6 +87,57 @@ class Player:
         self.rect.x += self.direction.x * self.velocity
 
 
+class Enemy:
+    def __init__(self, screen):
+        self.health = 100
+        self.velocity = 5
+        self.direction = pygame.math.Vector2(0, 0)
+        self.jump_force = -18
+        self.is_in_air = True
+        self.is_attack_on_cooldown = False
+        self.attack_cooldown = 15
+
+        self.screen = screen
+        self.width, self.height = (34, 28)
+        self.surface = pygame.Surface((self.width, self.height))
+        self.rect = pygame.Rect(self.screen.get_width() / 2 + 100,
+                                self.screen.get_height() / 2, self.width, self.height)
+
+        self.animations = {
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'idle.png')), (self.width, self.height), 5),
+            'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'run.png')), (self.width, self.height), 7),
+            'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'jump.png')), (self.width, self.height), 1),
+            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'fall.png')), (self.width, self.height), 1),
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'attack.png')), (self.width, self.height), 5, False)
+        }
+
+        self.animation_manager = graphics.AnimationManager(self.animations)
+        self.flip_sprite = False
+
+    def gravity(self):
+        self.direction.y += 0.9
+        self.rect.y += self.direction.y
+
+    def update(self):
+        self.animation_manager.update()
+
+    def render(self):
+        # load and set correct direction of frame
+        self.surface = self.animation_manager.get_current_animation().get_frame()
+
+        if self.flip_sprite:
+            self.surface = pygame.transform.flip(self.surface, True, False)
+
+        # testing rects
+        # white = pygame.Surface((self.rect.width, self.rect.height))
+        # pygame.draw.rect(white, (255, 255, 255), self.rect)
+        # self.screen.blit(white, self.rect)
+
+        self.surface.set_colorkey((0, 0, 0))
+        self.screen.blit(self.surface, (self.rect.x -
+                         self.rect.width, self.rect.y - self.rect.height))
+
+
 class Door:
     def __init__(self, state, screen, pos, change_scene=None) -> None:
         self.state = state

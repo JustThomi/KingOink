@@ -124,6 +124,10 @@ class Level:
         self.map = []
         self.collidables = []
 
+        self.enemy = entities.Enemy(screen)
+        self.entities.append(self.enemy)
+        self.map.append(self.enemy)
+
         self.load()
         self.setup_level()
         if self.is_tutorial:
@@ -270,13 +274,15 @@ class Level:
         self.render()
         self.scroll_map()
         self.input()
-        self.player.update()
         self.horizontal_collision()
         self.vertical_collision()
 
         self.box.update()
         self.enter_door.update()
         self.exit_door.update()
+
+        self.player.update()
+        self.enemy.update()
 
     def render(self):
         # render tiles
@@ -290,4 +296,6 @@ class Level:
         self.enter_door.render()
         self.exit_door.render()
         self.box.render()
+
         self.player.render()
+        self.enemy.render()
