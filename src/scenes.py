@@ -234,11 +234,10 @@ class Level:
                 if tile.rect.colliderect(entity.rect):
                     if entity.direction.y > 0:
                         entity.rect.bottom = tile.rect.top
-                        entity.direction.y = 0
                         entity.is_in_air = False
-                    if entity.direction.y < 0:
+                    elif entity.direction.y < 0:
                         entity.rect.top = tile.rect.bottom
-                        entity.direction.y = 0
+                    entity.direction.y = 0
 
     def horizontal_collision(self):
         for entity in self.entities:
@@ -246,8 +245,9 @@ class Level:
                 if tile.rect.colliderect(entity.rect):
                     if entity.direction.x > 0:
                         entity.rect.right = tile.rect.left
-                    if entity.direction.x < 0:
+                    elif entity.direction.x < 0:
                         entity.rect.left = tile.rect.right
+                    entity.direction.x = 0
 
     def move_map(self):
         for tile in self.map:
@@ -273,9 +273,9 @@ class Level:
     def update(self):
         self.render()
         self.scroll_map()
-        self.input()
         self.horizontal_collision()
         self.vertical_collision()
+        self.input()
 
         self.box.update()
         self.enter_door.update()
