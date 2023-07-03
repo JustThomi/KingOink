@@ -281,8 +281,15 @@ class Level:
         self.enter_door.update()
         self.exit_door.update()
 
-        self.player.update()
-        self.enemy.update()
+        for e in self.entities:
+            e.update()
+            if isinstance(e, entities.Enemy):
+                if e.rect.colliderect(self.player.hurtbox) and self.player.can_deal_dmg:
+                    e.take_damage()
+                if e.is_dead():
+                    print('dead booiii')
+                    self.entities.remove(e)
+                    self.map.remove(e)
 
     def render(self):
         # render tiles
@@ -297,5 +304,5 @@ class Level:
         self.exit_door.render()
         self.box.render()
 
-        self.player.render()
-        self.enemy.render()
+        for e in self.entities:
+            e.render()

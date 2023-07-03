@@ -12,12 +12,16 @@ class Player:
         self.is_in_air = True
         self.is_attack_on_cooldown = False
         self.attack_cooldown = 15
+        self.can_deal_dmg = False
 
         self.screen = screen
         self.width, self.height = (78, 58)
         self.surface = pygame.Surface((self.width, self.height))
         self.rect = pygame.Rect(self.screen.get_width() / 2,
                                 self.screen.get_height() / 2, self.width - 25, self.height - 10)
+        
+        self.hurtbox = pygame.Rect(self.screen.get_width() / 2,
+                                self.screen.get_height() / 2, self.width - 15, self.height - 10)
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'idle.png')), (self.width, self.height), 5),
@@ -36,6 +40,7 @@ class Player:
         self.move()
         self.handle_cooldown()
         self.animation_manager.update()
+        self.handle_hurtbox()
 
         if self.is_dead():
             self.set_state('lose')
@@ -43,17 +48,34 @@ class Player:
     def render(self):
         # load and set correct direction of frame
         self.surface = self.animation_manager.get_current_animation().get_frame()
+        self.surface.set_colorkey((0, 0, 0))
 
         if self.flip_sprite:
             self.surface = pygame.transform.flip(self.surface, True, False)
-
-        self.surface.set_colorkey((0, 0, 0))
-        self.screen.blit(self.surface, (self.rect.x - 50, self.rect.y - 40))
+            self.screen.blit(self.surface, (self.rect.x - 70, self.rect.y - 40))
+        else:
+            self.screen.blit(self.surface, (self.rect.x - 40, self.rect.y - 40))
 
         # testing rects
-        # white = pygame.Surface((self.rect.width, self.rect.height))
-        # pygame.draw.rect(white, (255, 255, 255), self.rect)
-        # self.screen.blit(white, self.rect)
+        # block = pygame.Surface((self.rect.width, self.rect.height))
+        # pygame.draw.rect(block, (255, 255, 255), self.rect)
+        # self.screen.blit(block, self.rect)
+
+        # testing hurtbox
+        # block = pygame.Surface((self.hurtbox.width, self.hurtbox.height))
+        # pygame.draw.rect(block, (255, 255, 255), self.hurtbox)
+        # self.screen.blit(block, self.hurtbox)
+
+    def handle_hurtbox(self):
+        if self.animation_manager.state == 'attack':
+            self.can_deal_dmg = True
+        else:
+            self.can_deal_dmg = False
+
+        if self.flip_sprite:
+            self.hurtbox.x, self.hurtbox.y = self.rect.x - self.rect.width, self.rect.y
+        else:
+            self.hurtbox.x, self.hurtbox.y = self.rect.x + self.rect.width, self.rect.y
 
     def reset_cooldown(self):
         self.attack_cooldown = 15
@@ -89,13 +111,14 @@ class Player:
 
 class Enemy:
     def __init__(self, screen):
-        self.health = 100
+        self.health = 10
         self.velocity = 5
         self.direction = pygame.math.Vector2(0, 0)
         self.jump_force = -18
         self.is_in_air = True
         self.is_attack_on_cooldown = False
         self.attack_cooldown = 15
+        self.dead = False
 
         self.screen = screen
         self.width, self.height = (34, 28)
@@ -108,7 +131,8 @@ class Enemy:
             'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'run.png')), (self.width, self.height), 7),
             'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'jump.png')), (self.width, self.height), 1),
             'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'fall.png')), (self.width, self.height), 1),
-            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'attack.png')), (self.width, self.height), 5, False)
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'attack.png')), (self.width, self.height), 5, False),
+            'dead': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'dead.png')), (self.width, self.height), 5, False)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -118,8 +142,19 @@ class Enemy:
         self.direction.y += 0.9
         self.rect.y += self.direction.y
 
+    def take_damage(self):
+        self.health -= 10
+    
+    def is_dead(self):
+        return self.dead
+
     def update(self):
         self.animation_manager.update()
+        if self.health <= 0 and self.animation_manager.state != 'dead':
+            self.animation_manager.set_state('dead')  
+
+        if self.animation_manager.state == 'dead' and self.animation_manager.animation_status == 'done':
+            self.dead = True
 
     def render(self):
         # load and set correct direction of frame
@@ -127,11 +162,6 @@ class Enemy:
 
         if self.flip_sprite:
             self.surface = pygame.transform.flip(self.surface, True, False)
-
-        # testing rects
-        # white = pygame.Surface((self.rect.width, self.rect.height))
-        # pygame.draw.rect(white, (255, 255, 255), self.rect)
-        # self.screen.blit(white, self.rect)
 
         self.surface.set_colorkey((0, 0, 0))
         self.screen.blit(self.surface, (self.rect.x -
