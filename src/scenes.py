@@ -287,7 +287,6 @@ class Level:
                 if e.rect.colliderect(self.player.hurtbox) and self.player.can_deal_dmg:
                     e.take_damage()
                 if e.is_dead():
-                    print('dead booiii')
                     self.entities.remove(e)
                     self.map.remove(e)
 

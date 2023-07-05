@@ -78,6 +78,7 @@ class Game:
 def main():
     pygame.init()
     pygame.font.init()
+    pygame.mixer.init()
     pygame.display.set_caption('King Oink')
 
     screen_height, screen_width = (1280, 720)

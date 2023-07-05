@@ -135,6 +135,7 @@ class Enemy:
             'dead': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'dead.png')), (self.width, self.height), 5, False)
         }
 
+        self.dead_sound = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'pig', 'pig_hit.mp3'))
         self.animation_manager = graphics.AnimationManager(self.animations)
         self.flip_sprite = False
 
@@ -151,6 +152,7 @@ class Enemy:
     def update(self):
         self.animation_manager.update()
         if self.health <= 0 and self.animation_manager.state != 'dead':
+            pygame.mixer.Sound.play(self.dead_sound)
             self.animation_manager.set_state('dead')  
 
         if self.animation_manager.state == 'dead' and self.animation_manager.animation_status == 'done':
