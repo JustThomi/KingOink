@@ -105,9 +105,11 @@ class Pause:
 
 
 class Level:
-    def __init__(self, screen, layout, deco_layout, tutorial, swap_level, set_state) -> None:
+    def __init__(self, screen, layout, deco_layout, level_data, tutorial, swap_level, set_state) -> None:
         self.layout = layout
         self.deco_layout = deco_layout
+        self.level_data = level_data
+
         self.screen = screen
         self.is_tutorial = tutorial
         self.level_cleared = False
@@ -123,10 +125,6 @@ class Level:
         self.decoratione_tiles = spritesheet.DecorationTiles()
         self.map = []
         self.collidables = []
-
-        self.enemy = entities.Enemy(screen)
-        self.entities.append(self.enemy)
-        self.map.append(self.enemy)
 
         self.load()
         self.setup_level()
@@ -187,17 +185,18 @@ class Level:
         self.map.append(self.space_key)
 
     def setup_level(self):
-        self.enter_door = entities.Door('enter', self.screen, (500, 400))
-        self.exit_door = entities.Door(
-            'exit', self.screen, (2100, 400), self.swap_level)
-        self.box = entities.Box(self.screen, (600, 480))
+        for item in self.level_data:
+            #not a good solution but decided to treat this as a gamejam game :))
+            item.screen = self.screen
+            self.map.append(item)
 
-        self.map.append(self.enter_door)
-        self.map.append(self.exit_door)
-
-        # box collide test
-        self.map.append(self.box)
-        self.collidables.append(self.box)
+            if isinstance(item, entities.Enemy):
+                self.entities.append(item)
+            elif isinstance(item, entities.Box):
+                self.collidables.append(item)
+            elif isinstance(item, entities.Door):
+                if item.state == 'exit':
+                    item.change_scene = self.swap_level
 
     def input(self):
         keys = pygame.key.get_pressed()

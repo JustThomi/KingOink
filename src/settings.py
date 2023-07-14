@@ -1,3 +1,5 @@
+import src.entities as entities
+
 tile_size = 64
 
 tutorial_level = ["                                             ",
@@ -21,6 +23,13 @@ tutorial_decore = ["                                             ",
                    "                                             ",
                    "                                             ",
                    "                                             ", ]
+
+tutorial_data = [
+    entities.Door('enter', (500, 400)),
+    entities.Door('exit', (2100, 400)),
+    entities.Box((600, 480)),
+    entities.Enemy((700, 360)),
+]
 
 level_1 = ["                                             ",
            "      RPPPPPPPPPPPPPPPPPPPPPPPPPPPPS         ",

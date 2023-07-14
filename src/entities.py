@@ -110,7 +110,7 @@ class Player:
 
 
 class Enemy:
-    def __init__(self, screen):
+    def __init__(self, pos):
         self.health = 10
         self.velocity = 5
         self.direction = pygame.math.Vector2(0, 0)
@@ -120,11 +120,10 @@ class Enemy:
         self.attack_cooldown = 15
         self.dead = False
 
-        self.screen = screen
+        self.screen = None
         self.width, self.height = (34, 28)
         self.surface = pygame.Surface((self.width, self.height))
-        self.rect = pygame.Rect(self.screen.get_width() / 2 + 100,
-                                self.screen.get_height() / 2, self.width, self.height)
+        self.rect = pygame.Rect(pos, (self.width, self.height))
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'idle.png')), (self.width, self.height), 5),
@@ -171,9 +170,9 @@ class Enemy:
 
 
 class Door:
-    def __init__(self, state, screen, pos, change_scene=None) -> None:
+    def __init__(self, state, pos, change_scene=None) -> None:
         self.state = state
-        self.screen = screen
+        self.screen = None
         self.width, self.height = (46, 56)
         self.surface = pygame.Surface((self.width, self.height))
         self.rect = pygame.Rect(pos, (self.width * 2, self.height * 2))
@@ -210,8 +209,8 @@ class Door:
 
 
 class Box:
-    def __init__(self, screen, position) -> None:
-        self.screen = screen
+    def __init__(self, position) -> None:
+        self.screen = None
         self.width, self.height = (22, 16)
         self.surface = pygame.Surface((self.width, self.height))
         self.rect = self.surface.get_rect()
