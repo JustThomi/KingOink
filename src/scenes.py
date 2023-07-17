@@ -299,6 +299,8 @@ class Level:
         for tile in self.map:
             if isinstance(tile, entities.Enemy):
                 continue
+            elif isinstance(tile, entities.Box):
+                tile.render()
             tile.surface.set_colorkey((0, 0, 0))
             self.screen.blit(tile.surface, tile.rect)
 
