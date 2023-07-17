@@ -8,20 +8,8 @@ class Game:
         self.screen = screen
         self.state = 'game'
         self.current_level = 0
-        self.levels = [
-            scenes.Level(
-                screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level, self.set_state),
-            scenes.Level(
-                screen, settings.level_1, settings.level_1_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                screen, settings.level_2, settings.level_2_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                screen, settings.level_3, settings.level_3_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                screen, settings.level_4, settings.level_4_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                screen, settings.level_5, settings.level_5_decore, False, self.next_level, self.set_state),
-        ]
+        self.level = scenes.Level(
+            screen, self.next_level, self.set_state, self.current_level)
 
         self.lose_scene = scenes.Lose(screen, self)
         self.pause_scene = scenes.Pause(screen)
@@ -39,26 +27,14 @@ class Game:
         else:
             self.set_state('game')
 
-    # not a good solutionw
-    def reset_levels(self):
-        self.levels = [
-            scenes.Level(
-                self.screen, settings.tutorial_level, settings.tutorial_decore, True, self.next_level, self.set_state),
-            scenes.Level(
-                self.screen, settings.level_1, settings.level_1_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                self.screen, settings.level_2, settings.level_2_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                self.screen, settings.level_3, settings.level_3_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                self.screen, settings.level_4, settings.level_4_decore, False, self.next_level, self.set_state),
-            scenes.Level(
-                self.screen, settings.level_5, settings.level_5_decore, False, self.next_level, self.set_state),
-        ]
+    def reset_level(self):
+        self.level = scenes.Level(
+            self.screen, self.next_level, self.set_state, self.current_level)
 
     def next_level(self):
-        if self.current_level + 1 < len(self.levels):
+        if self.current_level + 1 < 5:
             self.current_level += 1
+            self.reset_level()
         else:
             self.set_state('win')
 
@@ -66,7 +42,7 @@ class Game:
         match self.state:
             case 'game':
                 self.render()
-                self.levels[self.current_level].update()
+                self.level.update()
             case 'lose':
                 self.lose_scene.update()
             case 'pause':

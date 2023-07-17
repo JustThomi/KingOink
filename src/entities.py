@@ -19,9 +19,9 @@ class Player:
         self.surface = pygame.Surface((self.width, self.height))
         self.rect = pygame.Rect(self.screen.get_width() / 2,
                                 self.screen.get_height() / 2, self.width - 25, self.height - 10)
-        
+
         self.hurtbox = pygame.Rect(self.screen.get_width() / 2,
-                                self.screen.get_height() / 2, self.width - 15, self.height - 10)
+                                   self.screen.get_height() / 2, self.width - 15, self.height - 10)
 
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'idle.png')), (self.width, self.height), 5),
@@ -52,9 +52,11 @@ class Player:
 
         if self.flip_sprite:
             self.surface = pygame.transform.flip(self.surface, True, False)
-            self.screen.blit(self.surface, (self.rect.x - 70, self.rect.y - 40))
+            self.screen.blit(
+                self.surface, (self.rect.x - 70, self.rect.y - 40))
         else:
-            self.screen.blit(self.surface, (self.rect.x - 40, self.rect.y - 40))
+            self.screen.blit(
+                self.surface, (self.rect.x - 40, self.rect.y - 40))
 
         # testing rects
         # block = pygame.Surface((self.rect.width, self.rect.height))
@@ -134,7 +136,8 @@ class Enemy:
             'dead': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'dead.png')), (self.width, self.height), 5, False)
         }
 
-        self.dead_sound = pygame.mixer.Sound(os.path.join('assets', 'sounds', 'pig', 'pig_hit.mp3'))
+        self.dead_sound = pygame.mixer.Sound(
+            os.path.join('assets', 'sounds', 'pig', 'pig_hit.mp3'))
         self.animation_manager = graphics.AnimationManager(self.animations)
         self.flip_sprite = False
 
@@ -144,7 +147,7 @@ class Enemy:
 
     def take_damage(self):
         self.health -= 10
-    
+
     def is_dead(self):
         return self.dead
 
@@ -152,7 +155,7 @@ class Enemy:
         self.animation_manager.update()
         if self.health <= 0 and self.animation_manager.state != 'dead':
             pygame.mixer.Sound.play(self.dead_sound)
-            self.animation_manager.set_state('dead')  
+            self.animation_manager.set_state('dead')
 
         if self.animation_manager.state == 'dead' and self.animation_manager.animation_status == 'done':
             self.dead = True
@@ -237,3 +240,45 @@ class Box:
 
     def animate(self):
         self.animation_manager.set_state('idle')
+
+
+class Entity_data:
+    def __init__(self) -> None:
+
+        self.level_0 = [
+            Door('enter', (500, 400)),
+            Door('exit', (2100, 400)),
+            Box((600, 480)),
+            Enemy((700, 360)),
+        ]
+
+        self.level_1 = [
+            Door('enter', (500, 400)),
+            Door('exit', (2100, 400)),
+            Box((600, 480)),
+            Enemy((700, 360)),
+        ]
+
+        self.level_2 = [
+            Door('enter', (500, 400)),
+            Door('exit', (2100, 400)),
+            Box((600, 480)),
+            Enemy((700, 360)),
+        ]
+
+        self.level_3 = [
+            Door('enter', (500, 400)),
+            Door('exit', (2100, 400)),
+            Box((600, 480)),
+            Enemy((700, 360)),
+        ]
+
+        self.level_4 = [
+            Door('enter', (500, 400)),
+            Door('exit', (2100, 400)),
+            Box((600, 480)),
+            Enemy((700, 360)),
+        ]
+
+        self.levels = [self.level_0, self.level_1,
+                       self.level_2, self.level_3, self.level_4]

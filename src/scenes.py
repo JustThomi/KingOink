@@ -105,15 +105,15 @@ class Pause:
 
 
 class Level:
-    def __init__(self, screen, layout, deco_layout, level_data, tutorial, swap_level, set_state) -> None:
-        self.layout = layout
-        self.deco_layout = deco_layout
-        self.level_data = level_data
+    def __init__(self, screen, swap_level, set_state, curr_level) -> None:
+        self.layout = settings.Level_data()
+        self.deco_layout = settings.Level_decor()
+        self.entity_data = entities.Entity_data()
 
         self.screen = screen
-        self.is_tutorial = tutorial
         self.level_cleared = False
         self.swap_level = swap_level
+        self.curr_level = curr_level
 
         self.entities = []
         self.player = entities.Player(screen, set_state)
@@ -126,13 +126,16 @@ class Level:
         self.map = []
         self.collidables = []
 
+        self.enter_door = None
+        self.exit_door = None
+
         self.load()
         self.setup_level()
-        if self.is_tutorial:
+        if self.curr_level == 0:
             self.setup_tutorial()
 
     def load(self):
-        for row_id, row in enumerate(self.layout):
+        for row_id, row in enumerate(self.layout.levels[self.curr_level]):
             for tile_id, tile in enumerate(row):
                 if tile in self.terrain_tiles.background.keys():
                     position = (tile_id * settings.tile_size,
@@ -148,7 +151,7 @@ class Level:
                     self.map.append(t)
                     self.collidables.append(t)
 
-        for row_id, row in enumerate(self.deco_layout):
+        for row_id, row in enumerate(self.deco_layout.levels[self.curr_level]):
             for tile_id, tile in enumerate(row):
                 if tile in self.decoratione_tiles.decorations.keys():
                     position = (tile_id * settings.tile_size,
@@ -185,8 +188,8 @@ class Level:
         self.map.append(self.space_key)
 
     def setup_level(self):
-        for item in self.level_data:
-            #not a good solution but decided to treat this as a gamejam game :))
+        for item in self.entity_data.levels[self.curr_level]:
+            # not a good solution but decided to treat this as a gamejam game :))
             item.screen = self.screen
             self.map.append(item)
 
@@ -196,7 +199,10 @@ class Level:
                 self.collidables.append(item)
             elif isinstance(item, entities.Door):
                 if item.state == 'exit':
+                    self.exit_door = item
                     item.change_scene = self.swap_level
+                else:
+                    self.enter_door = item
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -276,7 +282,6 @@ class Level:
         self.vertical_collision()
         self.input()
 
-        self.box.update()
         self.enter_door.update()
         self.exit_door.update()
 
@@ -292,15 +297,16 @@ class Level:
     def render(self):
         # render tiles
         for tile in self.map:
+            if isinstance(tile, entities.Enemy):
+                continue
             tile.surface.set_colorkey((0, 0, 0))
             self.screen.blit(tile.surface, tile.rect)
 
-        if self.is_tutorial:
+        if self.curr_level == 0:
             self.show_tutorial()
 
         self.enter_door.render()
         self.exit_door.render()
-        self.box.render()
 
         for e in self.entities:
             e.render()
