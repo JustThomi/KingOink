@@ -180,7 +180,7 @@ class Level:
         self.w_key = spritesheet.Tile(
             self.decoratione_tiles.hints['J'], (640, 350), self.decoratione_tiles.hints['J'].get_size())
         self.space_key = spritesheet.Tile(
-            self.decoratione_tiles.hints['A'], (1000, 400), self.decoratione_tiles.hints['A'].get_size())
+            self.decoratione_tiles.hints['A'], (1500, 400), self.decoratione_tiles.hints['A'].get_size())
 
         self.map.append(self.a_key)
         self.map.append(self.d_key)

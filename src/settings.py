@@ -7,12 +7,12 @@ class Level_data:
         self.level_0 = ["                                             ",
                         "      RPPPPPPPPPPPZPPPPPPPPPPPPPPPPS         ",
                         "      NABBBBBBBBBBWBBBBBBBBBBBBBBBCM         ",
-                        "      NDEEEEEEEEEEWEEEEEEEEEEEEEEEFM         ",
                         "      NDEEEEEEEEEEXEEEEEEEEEEEEEEEFM         ",
                         "      NDEEEEEEEEEEEEEEEEEEEEEEEEEEFM         ",
+                        "      NDEEEEEEEEEEEEEEEEEEEEEEEEEEFM         ",
                         "      NDEEEEEEEEEEVEEEEEEEEEEEEEEEFM         ",
-                        "      NGHHHHHHHHHHWHHHHHHHHHHHHHHHIM         ",
-                        "      TKKKKKKKKKKKYKKKKKKKKKKKKKKKKU         ",
+                        "      NGHHHHHHHHHHWHHHHHHHHVHHHHHHIM         ",
+                        "      TKKKKKKKKKKKYKKKKKKKKYKKKKKKKU         ",
                         "                                             ", ]
 
         self.level_1 = ["                                             ",
@@ -82,7 +82,7 @@ class Level_decor:
                                "                                             ",
                                "           WI       WI       WI              ",
                                "           ND       ND       ND              ",
-                               "                 T                           ",
+                               "                 T T                         ",
                                "                                             ",
                                "                                             ",
                                "                                             ", ]
