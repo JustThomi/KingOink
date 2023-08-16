@@ -286,9 +286,10 @@ class Entity_data:
 
         self.level_1 = [
             Door('enter', (500, 400)),
-            Door('exit', (2100, 400)),
+            Door('exit', (2100, 275)),
             Box((1720, 480)),
             Enemy((1500, 360), [1400, 1680]),
+            Enemy((1000, 300), [800, 1300]),
         ]
 
         self.level_2 = [
