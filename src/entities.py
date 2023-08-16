@@ -17,8 +17,7 @@ class Player:
         self.screen = screen
         self.width, self.height = (78, 58)
         self.surface = pygame.Surface((self.width, self.height))
-        self.rect = pygame.Rect(self.screen.get_width() / 2,
-                                self.screen.get_height() / 2, self.width - 25, self.height - 10)
+        self.rect = pygame.Rect(520, 500, self.width - 25, self.height - 10)
 
         self.hurtbox = pygame.Rect(self.screen.get_width() / 2,
                                    self.screen.get_height() / 2, self.width - 15, self.height - 10)
@@ -28,10 +27,13 @@ class Player:
             'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'run.png')), (self.width, self.height), 7),
             'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'jump.png')), (self.width, self.height), 1),
             'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'fall.png')), (self.width, self.height), 1),
-            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 5, False)
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 5, False),
+            'exit_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_exit.png')), (self.width, self.height), 7, False),
+            'enter_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_enter.png')), (self.width, self.height), 7, False),
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
+        self.animation_manager.set_state('exit_door')
         self.flip_sprite = False
 
         self.set_state = set_state
@@ -41,6 +43,11 @@ class Player:
         self.handle_cooldown()
         self.animation_manager.update()
         self.handle_hurtbox()
+
+        if self.direction.y > 1:
+            self.animation_manager.set_state('fall')
+        elif self.direction.y < 0:
+            self.animation_manager.set_state('jump')
 
         if self.is_dead():
             self.set_state('lose')
@@ -112,15 +119,16 @@ class Player:
 
 
 class Enemy:
-    def __init__(self, pos):
+    def __init__(self, pos, area):
         self.health = 10
-        self.velocity = 5
-        self.direction = pygame.math.Vector2(0, 0)
+        self.velocity = 3
+        self.direction = pygame.math.Vector2(-1, 0)
         self.jump_force = -18
         self.is_in_air = True
         self.is_attack_on_cooldown = False
         self.attack_cooldown = 15
         self.dead = False
+        self.walk_area = area
 
         self.screen = None
         self.width, self.height = (34, 28)
@@ -150,15 +158,33 @@ class Enemy:
 
     def is_dead(self):
         return self.dead
-
-    def update(self):
-        self.animation_manager.update()
+    
+    def handle_death(self):
         if self.health <= 0 and self.animation_manager.state != 'dead':
             pygame.mixer.Sound.play(self.dead_sound)
             self.animation_manager.set_state('dead')
 
         if self.animation_manager.state == 'dead' and self.animation_manager.animation_status == 'done':
             self.dead = True
+    
+    def set_target_direction(self):
+        if self.rect.x >= self.walk_area[1]:
+            self.direction.x = -1
+            self.flip_sprite = False
+            self.animation_manager.set_state('run')
+        elif self.rect.x <= self.walk_area[0]:
+            self.direction.x = 1
+            self.flip_sprite = True
+            self.animation_manager.set_state('run')
+
+    def move(self):
+        self.rect.x += self.velocity * self.direction.x
+
+    def update(self):
+        self.animation_manager.update()
+        self.set_target_direction()
+        self.handle_death()
+        self.move()
 
     def render(self):
         # load and set correct direction of frame
@@ -184,7 +210,7 @@ class Door:
         self.animations = {
             'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')), (self.width, self.height), 1),
             'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 5, False),
-            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 5, False)
+            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 9, False)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -255,35 +281,35 @@ class Entity_data:
             Box((1090, 480)),
             Box((1090, 420)),
             Box((1800, 480)),
-            Enemy((1500, 360)),
+            Enemy((1500, 360), [1240, 1680]),
         ]
 
         self.level_1 = [
             Door('enter', (500, 400)),
             Door('exit', (2100, 400)),
-            Box((600, 480)),
-            Enemy((700, 360)),
+            Box((1720, 480)),
+            Enemy((1500, 360), [1400, 1680]),
         ]
 
         self.level_2 = [
             Door('enter', (500, 400)),
             Door('exit', (2100, 400)),
             Box((600, 480)),
-            Enemy((700, 360)),
+            Enemy((1500, 360), [1450, 1550]),
         ]
 
         self.level_3 = [
             Door('enter', (500, 400)),
             Door('exit', (2100, 400)),
             Box((600, 480)),
-            Enemy((700, 360)),
+            Enemy((1500, 360), [1450, 1550]),
         ]
 
         self.level_4 = [
             Door('enter', (500, 400)),
             Door('exit', (2100, 400)),
             Box((600, 480)),
-            Enemy((700, 360)),
+            Enemy((1500, 360), [1450, 1550]),
         ]
 
         self.levels = [self.level_0, self.level_1,

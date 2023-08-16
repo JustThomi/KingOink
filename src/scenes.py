@@ -228,6 +228,7 @@ class Level:
 
         if keys[pygame.K_RETURN] and self.player.rect.colliderect(self.exit_door.rect):
             if not self.level_cleared:
+                self.player.animation_manager.set_state('enter_door')
                 self.exit_door.animation_manager.set_state('open')
                 self.level_cleared = not self.level_cleared
 
@@ -257,16 +258,21 @@ class Level:
     def move_map(self):
         for tile in self.map:
             tile.rect.x += self.scroll_speed
+            # game jam lvl solution...BUT it should work :))
+            if isinstance(tile, entities.Enemy):
+                tile.walk_area[0] += self.scroll_speed
+                tile.walk_area[1] += self.scroll_speed
 
     def scroll_map(self):
-        self.move_map()
-
+        # HORIZONTAL
         if self.player.rect.x > self.screen.get_width()/2 + 100 and self.player.direction.x > 0:
             self.scroll_speed = -self.player_vel
             self.player.velocity = 0
+            self.move_map()
         elif self.player.rect.x < self.screen.get_width()/2 - 200 and self.player.direction.x < 0:
             self.player.velocity = 0
             self.scroll_speed = self.player_vel
+            self.move_map()
         else:
             self.scroll_speed = 0
             self.player.velocity = self.player_vel
