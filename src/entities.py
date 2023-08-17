@@ -5,14 +5,19 @@ import src.graphics as graphics
 
 class Player:
     def __init__(self, screen, set_state):
-        self.health = 100
+        self.health = 3
         self.velocity = 5
         self.direction = pygame.math.Vector2(0, 0)
         self.jump_force = -18
         self.is_in_air = True
+
         self.is_attack_on_cooldown = False
         self.attack_cooldown = 15
         self.can_deal_dmg = False
+
+        self.is_take_dmg_on_cooldown = False
+        self.iframes = 30
+        self.can_take_damage = True
 
         self.screen = screen
         self.width, self.height = (78, 58)
@@ -30,6 +35,7 @@ class Player:
             'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 5, False),
             'exit_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_exit.png')), (self.width, self.height), 7, False),
             'enter_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_enter.png')), (self.width, self.height), 7, False),
+            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'hit.png')), (self.width, self.height), 5, False),
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -89,19 +95,36 @@ class Player:
         else:
             self.hurtbox.x, self.hurtbox.y = self.rect.x + self.rect.width, self.rect.y
 
-    def reset_cooldown(self):
+    def reset_attack_cooldown(self):
         self.attack_cooldown = 15
         self.is_attack_on_cooldown = False
+
+    def reset_dmg_cooldown(self):
+        self.iframes = 30
+        self.is_take_dmg_on_cooldown = False
+        self.can_take_damage = True
 
     def handle_cooldown(self):
         if self.is_attack_on_cooldown:
             if self.attack_cooldown > 0:
                 self.attack_cooldown -= 1
             else:
-                self.reset_cooldown()
+                self.reset_attack_cooldown()
+
+        if self.is_take_dmg_on_cooldown:
+            if self.iframes > 0:
+                self.iframes -= 1
+            else:
+                self.reset_dmg_cooldown()
 
     def is_dead(self):
         return self.health <= 0
+
+    def take_damage(self):
+        self.animation_manager.set_state('hit')
+        self.health -= 1
+        self.can_take_damage = False
+        self.is_take_dmg_on_cooldown = True
 
     def gravity(self):
         self.direction.y += 0.9

@@ -296,6 +296,8 @@ class Level:
             if isinstance(e, entities.Enemy):
                 if e.rect.colliderect(self.player.hurtbox) and self.player.can_deal_dmg:
                     e.take_damage()
+                if e.rect.colliderect(self.player.rect) and self.player.can_take_damage:
+                    self.player.take_damage()
                 if e.is_dead():
                     self.entities.remove(e)
                     self.map.remove(e)
