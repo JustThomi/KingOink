@@ -3,7 +3,7 @@ import os
 import src.spritesheet as spritesheet
 import src.settings as settings
 import src.entities as entities
-
+import src.ui as ui
 # I should have made a parent class but oh well
 
 
@@ -128,6 +128,8 @@ class Level:
 
         self.enter_door = None
         self.exit_door = None
+
+        self.ui = ui.Healthbar(self.screen)
 
         self.load()
         self.setup_level()
@@ -287,6 +289,7 @@ class Level:
         self.horizontal_collision()
         self.vertical_collision()
         self.input()
+        self.ui.update()
 
         self.enter_door.update()
         self.exit_door.update()
@@ -298,6 +301,7 @@ class Level:
                     e.take_damage()
                 if e.rect.colliderect(self.player.rect) and self.player.can_take_damage:
                     self.player.take_damage()
+                    self.ui.took_damage()
                 if e.is_dead():
                     self.entities.remove(e)
                     self.map.remove(e)
@@ -320,3 +324,5 @@ class Level:
 
         for e in self.entities:
             e.render()
+
+        self.ui.render()
