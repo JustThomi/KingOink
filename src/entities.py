@@ -49,6 +49,9 @@ class Player:
         elif self.direction.y < 0:
             self.animation_manager.set_state('jump')
 
+        if self.rect.y > self.screen.get_height():
+            self.health = 0
+
         if self.is_dead():
             self.set_state('lose')
 
@@ -158,7 +161,7 @@ class Enemy:
 
     def is_dead(self):
         return self.dead
-    
+
     def handle_death(self):
         if self.health <= 0 and self.animation_manager.state != 'dead':
             pygame.mixer.Sound.play(self.dead_sound)
@@ -166,7 +169,7 @@ class Enemy:
 
         if self.animation_manager.state == 'dead' and self.animation_manager.animation_status == 'done':
             self.dead = True
-    
+
     def set_target_direction(self):
         if self.rect.x >= self.walk_area[1]:
             self.direction.x = -1

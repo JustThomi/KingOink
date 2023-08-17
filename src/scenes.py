@@ -60,7 +60,7 @@ class Lose:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RETURN]:
-            self.game.reset_levels()
+            self.game.reset_level()
             self.game.set_state('game')
 
     def update(self):
