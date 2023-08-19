@@ -210,7 +210,8 @@ class Enemy:
         self.animation_manager.update()
         self.set_target_direction()
         self.handle_death()
-        self.move()
+        if self.animation_manager.state != 'dead':
+            self.move()
 
     def render(self):
         # load and set correct direction of frame
@@ -322,21 +323,22 @@ class Entity_data:
             Door('enter', (500, 400)),
             Door('exit', (2100, 400)),
             Box((600, 480)),
-            Enemy((1500, 360), [1450, 1550]),
         ]
 
         self.level_3 = [
             Door('enter', (500, 400)),
             Door('exit', (2100, 400)),
             Box((600, 480)),
-            Enemy((1500, 360), [1450, 1550]),
+            Enemy((1000, 350), [995, 1100]),
+            Enemy((1700, 270), [1550, 1700]),
         ]
 
         self.level_4 = [
             Door('enter', (500, 400)),
             Door('exit', (2100, 275)),
             Box((600, 480)),
-            Enemy((1500, 360), [1450, 1550]),
+            Enemy((1600, 450), [1600, 1900]),
+            Enemy((900, 450), [900, 1300]),
         ]
 
         self.levels = [self.level_0, self.level_1,

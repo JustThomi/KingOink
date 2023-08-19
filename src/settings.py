@@ -55,7 +55,7 @@ class Level_data:
                         "      NDEEEEEEEEFXDEEEEEEEEEFXDEEEFM         ",
                         "      NDEEEFVDEEEBEEEEFVDEEEEBEEEEFM         ",
                         "      NDEEEFWDEEEEEEEEFWDEEEEEEEEEFM         ",
-                        "      NGHHHIWDHHHHHHHHIWGHHHHHHHHHIM         ",
+                        "      NGHHHIWGHHHHHHHHIWGHHHHHHHHHIM         ",
                         "      TKKKKKYKKKKKKKKKKYKKKKKKKKKKKU         ",
                         "                                             ", ]
 
@@ -105,8 +105,8 @@ class Level_decor:
                                "                                             ",
                                "        WI    WI        WI      WI            ",
                                "        ND    ND        ND      ND            ",
-                               "                   TT   TT                   ",
-                               "               TT                            ",
+                               "                    TT  TTT                  ",
+                               "               TTT                           ",
                                "           TT                TT              ",
                                "                                             ", ]
 
@@ -116,7 +116,7 @@ class Level_decor:
                                "                                             ",
                                "        WI         WI    WI                  ",
                                "        ND         ND    ND                  ",
-                               "                     T          TTT          ",
+                               "              TT    TT   TT     TTT          ",
                                "                                             ",
                                "                                             ",
                                "                                             ", ]

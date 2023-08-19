@@ -294,12 +294,13 @@ class Level:
         self.enter_door.update()
         self.exit_door.update()
 
+        # worse hitreg I've written lol
         for e in self.entities:
             e.update()
             if isinstance(e, entities.Enemy):
                 if e.rect.colliderect(self.player.hurtbox) and self.player.can_deal_dmg:
                     e.take_damage()
-                if e.rect.colliderect(self.player.rect) and self.player.can_take_damage:
+                if e.rect.colliderect(self.player.rect) and self.player.can_take_damage and e.animation_manager.state != 'dead':
                     self.player.take_damage()
                     self.ui.took_damage()
                 if e.is_dead():
