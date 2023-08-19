@@ -334,7 +334,7 @@ class Entity_data:
 
         self.level_4 = [
             Door('enter', (500, 400)),
-            Door('exit', (2100, 400)),
+            Door('exit', (2100, 275)),
             Box((600, 480)),
             Enemy((1500, 360), [1450, 1550]),
         ]

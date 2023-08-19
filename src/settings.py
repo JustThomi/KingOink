@@ -59,19 +59,9 @@ class Level_data:
                         "      TKKKKKYKKKKKKKKKKYKKKKKKKKKKKU         ",
                         "                                             ", ]
 
-        self.level_5 = ["                                             ",
-                        "      RPPPPPPPPPPPZPPPPPPPPPPPPPPPPS         ",
-                        "      NABBBBBBBBBBWBBBBBBBBBBBBBBBCM         ",
-                        "      NDEEEEEEEEEEWEEEEEEEEEEEEEEEFM         ",
-                        "      NDEEEEEEEEEEXEEEEEEEEEEEEEEEFM         ",
-                        "      NDEEEEEEEEEEEEEEEEEEEEEEEEEEFM         ",
-                        "      NDEEEEEEEEEEVEEEEEEEEEEEEEEEFM         ",
-                        "      NGHHHHHHHHHHWHHHHHHHHHHHHHHHIM         ",
-                        "      TKKKKKKKKKKKYKKKKKKKKKKKKKKKKU         ",
-                        "                                             ", ]
 
         self.levels = [self.level_0, self.level_1, self.level_2,
-                       self.level_3, self.level_4, self.level_5]
+                       self.level_3, self.level_4]
 
 
 class Level_decor:
@@ -113,8 +103,8 @@ class Level_decor:
                                "                                             ",
                                "                                             ",
                                "                                             ",
-                               "       WI    WI           WI      WI         ",
-                               "       ND    ND           ND      ND         ",
+                               "        WI    WI        WI      WI            ",
+                               "        ND    ND        ND      ND            ",
                                "                   TT   TT                   ",
                                "               TT                            ",
                                "           TT                TT              ",
@@ -124,23 +114,12 @@ class Level_decor:
                                "                                             ",
                                "                                             ",
                                "                                             ",
-                               "         WI       WI       WI                ",
-                               "         ND       ND       ND                ",
-                               "                     T                       ",
-                               "                                             ",
-                               "                                             ",
-                               "                                             ", ]
-
-        self.level_5_decore = ["                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "           WI       WI       WI              ",
-                               "           ND       ND       ND              ",
-                               "                 T                           ",
+                               "        WI         WI    WI                  ",
+                               "        ND         ND    ND                  ",
+                               "                     T          TTT          ",
                                "                                             ",
                                "                                             ",
                                "                                             ", ]
 
         self.levels = [self.level_0_decore, self.level_1_decore, self.level_2_decore,
-                       self.level_3_decore, self.level_4_decore, self.level_5_decore]
+                       self.level_3_decore, self.level_4_decore]
