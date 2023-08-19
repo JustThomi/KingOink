@@ -11,7 +11,7 @@ class Game:
         self.level = scenes.Level(
             screen, self.next_level, self.set_state, self.current_level)
 
-        self.lose_scene = scenes.Lose(screen, self)
+        self.lose_scene = scenes.Lose(screen, self.reset_level, self.set_state)
         self.pause_scene = scenes.Pause(screen)
         self.win_scene = scenes.Win(screen)
 

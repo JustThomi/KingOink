@@ -38,9 +38,10 @@ class Win:
 
 # very bad having 'game' here but I'll leave it for now
 class Lose:
-    def __init__(self, screen, game) -> None:
+    def __init__(self, screen, reset_level, set_state) -> None:
         self.screen = screen
-        self.game = game
+        self.reset_level = reset_level
+        self.set_game_state = set_state
         self.font = pygame.font.Font(
             os.path.join('assets', 'Monocraft.ttf'), 32)
 
@@ -60,8 +61,8 @@ class Lose:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RETURN]:
-            self.game.reset_level()
-            self.game.set_state('game')
+            self.reset_level()
+            self.set_game_state('game')
 
     def update(self):
         self.input()
@@ -266,7 +267,6 @@ class Level:
                 tile.walk_area[1] += self.scroll_speed
 
     def scroll_map(self):
-        # HORIZONTAL
         if self.player.rect.x > self.screen.get_width()/2 + 100 and self.player.direction.x > 0:
             self.scroll_speed = -self.player_vel
             self.player.velocity = 0
