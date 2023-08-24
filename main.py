@@ -63,6 +63,9 @@ def main():
     clock = pygame.time.Clock()
     game = Game(screen)
 
+    pygame.mixer.music.load("assets\sounds\music.mp3")
+    pygame.mixer.music.play(-1)
+
     while True:
         clock.tick(60)
 

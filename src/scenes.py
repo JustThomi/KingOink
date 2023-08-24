@@ -137,6 +137,8 @@ class Level:
         if self.curr_level == 0:
             self.setup_tutorial()
 
+        self.enter_door.close_sound.play()
+
     def load(self):
         for row_id, row in enumerate(self.layout.levels[self.curr_level]):
             for tile_id, tile in enumerate(row):
@@ -231,6 +233,7 @@ class Level:
 
         if keys[pygame.K_RETURN] and self.player.rect.colliderect(self.exit_door.rect):
             if not self.level_cleared:
+                self.exit_door.open_sound.play()
                 self.player.animation_manager.set_state('enter_door')
                 self.exit_door.animation_manager.set_state('open')
                 self.level_cleared = not self.level_cleared

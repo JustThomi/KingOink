@@ -11,6 +11,15 @@ class Player:
         self.jump_force = -18
         self.is_in_air = True
 
+        self.swing_sound = pygame.mixer.Sound(
+            os.path.join('assets', 'sounds', 'player', 'swing.wav'))
+        self.jump_sound = pygame.mixer.Sound(
+            os.path.join('assets', 'sounds', 'player', 'jump.ogg'))
+        self.step_sound = pygame.mixer.Sound(
+            os.path.join('assets', 'sounds', 'player', 'step.ogg'))
+        self.hit_sound = pygame.mixer.Sound(
+            os.path.join('assets', 'sounds', 'player', 'hit.ogg'))
+
         self.is_attack_on_cooldown = False
         self.attack_cooldown = 15
         self.can_deal_dmg = False
@@ -121,6 +130,7 @@ class Player:
         return self.health <= 0
 
     def take_damage(self):
+        self.hit_sound.play()
         self.animation_manager.set_state('hit')
         self.health -= 1
         self.can_take_damage = False
@@ -134,9 +144,11 @@ class Player:
         self.animation_manager.set_state('jump')
         self.direction.y = self.jump_force
         self.is_in_air = True
+        self.jump_sound.play()
 
     def attack(self):
         if not self.is_attack_on_cooldown:
+            self.swing_sound.play()
             self.animation_manager.set_state('attack')
             self.is_attack_on_cooldown = True
 
@@ -243,6 +255,11 @@ class Door:
         self.animation_manager = graphics.AnimationManager(self.animations)
         if self.state == 'enter':
             self.animation_manager.state = 'close'
+
+        self.open_sound = pygame.mixer.Sound(os.path.join(
+            'assets', 'sounds', 'door', 'door_open.ogg'))
+        self.close_sound = pygame.mixer.Sound(os.path.join(
+            'assets', 'sounds', 'door', 'door_close.ogg'))
 
     def check_enter(self):
         if self.animation_manager.state == 'open' and self.animation_manager.animation_status == 'done':
