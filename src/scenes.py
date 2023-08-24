@@ -14,7 +14,7 @@ class Win:
             os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
-            os.path.join('assets', 'winner_title.png'))
+            os.path.join('assets', 'winner_title.png')).convert_alpha()
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
         self.name = self.font.render(
@@ -23,7 +23,7 @@ class Win:
             'using pygame-ce', False, (255, 255, 255))
 
         self.background = pygame.Surface(
-            self.screen.get_size()).convert()
+            self.screen.get_size()).convert_alpha()
         self.background.set_alpha(100)
         self.background.fill((63, 56, 81, 50))
 
@@ -50,14 +50,14 @@ class Lose:
             os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
-            os.path.join('assets', 'lose_title.png'))
+            os.path.join('assets', 'lose_title.png')).convert_alpha()
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
         self.hint = self.font.render(
             'press ENTER to retry', False, (255, 255, 255))
 
         self.background = pygame.Surface(
-            self.screen.get_size()).convert()
+            self.screen.get_size()).convert_alpha()
         self.background.set_alpha(100)
         self.background.fill((63, 56, 81))
 
@@ -87,14 +87,14 @@ class Pause:
             os.path.join('assets', 'Monocraft.ttf'), 32)
 
         self.title = pygame.image.load(
-            os.path.join('assets', 'pause_title.png'))
+            os.path.join('assets', 'pause_title.png')).convert_alpha()
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
         self.unpause_hint = self.font.render(
             'press ESC to unpause', False, (255, 255, 255))
 
         self.background = pygame.Surface(
-            self.screen.get_size()).convert()
+            self.screen.get_size()).convert_alpha()
         self.background.set_alpha(100)
         self.background.fill((63, 56, 81, 50))
 
@@ -178,7 +178,7 @@ class Level:
 
     def setup_tutorial(self):
         self.title = pygame.image.load(
-            os.path.join('assets', 'KingOink_title.png'))
+            os.path.join('assets', 'KingOink_title.png')).convert_alpha()
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 4, self.title.get_height() * 4))
 

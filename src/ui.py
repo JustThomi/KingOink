@@ -9,8 +9,8 @@ class Heart:
         self.width, self.height = 18, 14
         self.rect = pygame.Rect(pos, (self.width, self.height))
         self.animations = {
-            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'lives_coins', 'heart_idle.png')), (self.width, self.height), 5),
-            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'lives_coins', 'heart_hit.png')), (self.width, self.height), 5, False),
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'lives_coins', 'heart_idle.png')).convert_alpha(), (self.width, self.height), 5),
+            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'lives_coins', 'heart_hit.png')).convert_alpha(), (self.width, self.height), 5, False),
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -36,7 +36,7 @@ class Healthbar:
         self.y_pos = self.screen.get_height() - self.height - 100
         self.rect = pygame.Rect(100, self.y_pos, self.width, self.height)
         self.animations = {
-            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'lives_coins', 'health_bar.png')), (self.width, self.height), 1)
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'lives_coins', 'health_bar.png')).convert_alpha(), (self.width, self.height), 1)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)

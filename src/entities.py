@@ -37,14 +37,14 @@ class Player:
                                    self.screen.get_height() / 2, self.width - 15, self.height - 10)
 
         self.animations = {
-            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'idle.png')), (self.width, self.height), 5),
-            'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'run.png')), (self.width, self.height), 7),
-            'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'jump.png')), (self.width, self.height), 1),
-            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'fall.png')), (self.width, self.height), 1),
-            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')), (self.width, self.height), 5, False),
-            'exit_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_exit.png')), (self.width, self.height), 7, False),
-            'enter_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_enter.png')), (self.width, self.height), 7, False),
-            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'hit.png')), (self.width, self.height), 5, False),
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'idle.png')).convert_alpha(), (self.width, self.height), 5),
+            'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'run.png')).convert_alpha(), (self.width, self.height), 7),
+            'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'jump.png')).convert_alpha(), (self.width, self.height), 1),
+            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'fall.png')).convert_alpha(), (self.width, self.height), 1),
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'attack.png')).convert_alpha(), (self.width, self.height), 5, False),
+            'exit_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_exit.png')).convert_alpha(), (self.width, self.height), 7, False),
+            'enter_door': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'door_enter.png')).convert_alpha(), (self.width, self.height), 7, False),
+            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'player', 'hit.png')).convert_alpha(), (self.width, self.height), 5, False),
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -174,12 +174,12 @@ class Enemy:
         self.rect = pygame.Rect(pos, (self.width, self.height))
 
         self.animations = {
-            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'idle.png')), (self.width, self.height), 5),
-            'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'run.png')), (self.width, self.height), 7),
-            'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'jump.png')), (self.width, self.height), 1),
-            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'fall.png')), (self.width, self.height), 1),
-            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'attack.png')), (self.width, self.height), 5, False),
-            'dead': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'dead.png')), (self.width, self.height), 5, False)
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'idle.png')).convert_alpha(), (self.width, self.height), 5),
+            'run': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'run.png')).convert_alpha(), (self.width, self.height), 7),
+            'jump': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'jump.png')).convert_alpha(), (self.width, self.height), 1),
+            'fall': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'fall.png')).convert_alpha(), (self.width, self.height), 1),
+            'attack': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'attack.png')).convert_alpha(), (self.width, self.height), 5, False),
+            'dead': graphics.Animation(pygame.image.load(os.path.join('assets', 'pig', 'dead.png')).convert_alpha(), (self.width, self.height), 5, False)
         }
 
         self.dead_sound = pygame.mixer.Sound(
@@ -247,9 +247,9 @@ class Door:
         self.change_scene = change_scene
 
         self.animations = {
-            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')), (self.width, self.height), 1),
-            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')), (self.width, self.height), 5, False),
-            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')), (self.width, self.height), 9, False)
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'idle.png')).convert_alpha(), (self.width, self.height), 1),
+            'open': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'opening.png')).convert_alpha(), (self.width, self.height), 5, False),
+            'close': graphics.Animation(pygame.image.load(os.path.join('assets', 'door', 'closing.png')).convert_alpha(), (self.width, self.height), 9, False)
         }
 
         self.animation_manager = graphics.AnimationManager(self.animations)
@@ -290,8 +290,8 @@ class Box:
         self.set_position(position)
 
         self.animations = {
-            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'idle.png')), (self.width, self.height), 1),
-            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'hit.png')), (self.width, self.height), 1),
+            'idle': graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'idle.png')).convert_alpha(), (self.width, self.height), 1),
+            'hit': graphics.Animation(pygame.image.load(os.path.join('assets', 'box', 'hit.png')).convert_alpha(), (self.width, self.height), 1),
         }
         self.animation_manager = graphics.AnimationManager(self.animations)
 

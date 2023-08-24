@@ -40,7 +40,7 @@ class Tile():
 class TerrainTiles:
     def __init__(self) -> None:
         self.background_tileset = Spritesheet(pygame.image.load(
-            os.path.join('assets', 'environment', 'terrain.png')), (32, 32))
+            os.path.join('assets', 'environment', 'terrain.png')).convert_alpha(), (32, 32))
 
         self.background = {
             'A': self.background_tileset.fetch_frame(1, 7),
@@ -81,7 +81,7 @@ class TerrainTiles:
 class DecorationTiles:
     def __init__(self) -> None:
         self.decorations_tileset = Spritesheet(pygame.image.load(
-            os.path.join('assets', 'environment', 'decorations.png')), (32, 32))
+            os.path.join('assets', 'environment', 'decorations.png')).convert_alpha(), (32, 32))
 
         self.decorations = {
             'W': self.decorations_tileset.fetch_frame(2, 3),
@@ -102,10 +102,10 @@ class DecorationTiles:
         }
 
         self.hints = {
-            'L': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'a_key.png')), (settings.tile_size, settings.tile_size)),
-            'R': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'd_key.png')), (settings.tile_size, settings.tile_size)),
-            'J': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'w_key.png')), (settings.tile_size, settings.tile_size)),
-            'A': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'space_key.png')), (settings.tile_size, settings.tile_size)),
+            'L': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'a_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
+            'R': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'd_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
+            'J': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'w_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
+            'A': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'space_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
         }
 
 # reference for level building untill I take the time to make a better system

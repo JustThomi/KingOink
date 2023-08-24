@@ -71,12 +71,12 @@ def main():
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
-                exit()
+                pygame.quit()
 
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
                     if game.state == 'win':
-                        exit()
+                        pygame.quit()
                     else:
                         game.pause()
 
