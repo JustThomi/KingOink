@@ -59,7 +59,6 @@ class Level_data:
                         "      TKKKKKYKKKKKKKKKKYKKKKKKKKKKKU         ",
                         "                                             ", ]
 
-
         self.levels = [self.level_0, self.level_1, self.level_2,
                        self.level_3, self.level_4]
 
@@ -68,9 +67,9 @@ class Level_decor:
     def __init__(self) -> None:
         self.level_0_decore = ["                                             ",
                                "                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "           WI       WI       WI              ",
+                               "              F           F                  ",
+                               "              G           G                  ",
+                               "           WI S     WI    S  WI              ",
                                "           ND       ND       ND              ",
                                "                 T T                         ",
                                "                                             ",
@@ -79,10 +78,10 @@ class Level_decor:
 
         self.level_1_decore = ["                                             ",
                                "                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "        WI     WI      WI    WI             ",
-                               "        ND     ND      ND    ND             ",
+                               "           F               F                 ",
+                               "           G               G                 ",
+                               "        WI S   WI      WI  S WI              ",
+                               "        ND     ND      ND    ND              ",
                                "             TTTTTTT            TTT          ",
                                "                              TT             ",
                                "                                             ",
@@ -90,9 +89,9 @@ class Level_decor:
 
         self.level_2_decore = ["                                             ",
                                "                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "        WI                     WI            ",
+                               "          F                   F              ",
+                               "          G                   G              ",
+                               "        WIS                   SWI            ",
                                "        ND                     ND            ",
                                "                     TT   TT                 ",
                                "                 TT                          ",
@@ -101,9 +100,9 @@ class Level_decor:
 
         self.level_3_decore = ["                                             ",
                                "                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "        WI    WI        WI      WI            ",
+                               "           F     F    F    F                 ",
+                               "           G     G    G    G                 ",
+                               "        WI S  WI S    S WI S    WI            ",
                                "        ND    ND        ND      ND            ",
                                "                    TT  TTT                  ",
                                "               TTT                           ",
@@ -112,9 +111,9 @@ class Level_decor:
 
         self.level_4_decore = ["                                             ",
                                "                                             ",
-                               "                                             ",
-                               "                                             ",
-                               "        WI         WI    WI                  ",
+                               "          F           F                      ",
+                               "          G           G                      ",
+                               "        WIS        WI S  WI                  ",
                                "        ND         ND    ND                  ",
                                "              TT    TT   TT     TTT          ",
                                "                                             ",

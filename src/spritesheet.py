@@ -88,6 +88,10 @@ class DecorationTiles:
             'I': self.decorations_tileset.fetch_frame(3, 3),
             'N': self.decorations_tileset.fetch_frame(2, 4),
             'D': self.decorations_tileset.fetch_frame(3, 4),
+
+            'F': self.decorations_tileset.fetch_frame(1, 1),
+            'G': self.decorations_tileset.fetch_frame(1, 2),
+            'S': self.decorations_tileset.fetch_frame(1, 3),
         }
 
         self.platforms = {
