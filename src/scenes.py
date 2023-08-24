@@ -17,8 +17,10 @@ class Win:
             os.path.join('assets', 'winner_title.png'))
         self.title = pygame.transform.scale(
             self.title, (self.title.get_width() * 5, self.title.get_height() * 5))
-        self.credits = self.font.render(
-            'made by WildDev using pygame-ce', False, (255, 255, 255))
+        self.name = self.font.render(
+            'Made by WildDev', False, (255, 255, 255))
+        self.using = self.font.render(
+            'using pygame-ce', False, (255, 255, 255))
 
         self.background = pygame.Surface(
             self.screen.get_size()).convert()
@@ -30,8 +32,10 @@ class Win:
 
     def render(self):
         self.screen.blit(self.background, (0, 0))
-        self.screen.blit(self.credits, (self.screen.get_width(
-        ) / 2 - self.credits.get_width() / 2, self.screen.get_height() / 2 + 100))
+        self.screen.blit(self.name, (self.screen.get_width(
+        ) / 2 - self.name.get_width() / 2, self.screen.get_height() / 2 + 100))
+        self.screen.blit(self.using, (self.screen.get_width(
+        ) / 2 - self.using.get_width() / 2, self.screen.get_height() / 2 + 150))
         self.screen.blit(self.title, (self.screen.get_width() /
                          2 - self.title.get_width() / 2, self.screen.get_height() / 2 - self.title.get_height() * 2))
 

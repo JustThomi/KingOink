@@ -25,7 +25,7 @@ class Player:
         self.can_deal_dmg = False
 
         self.is_take_dmg_on_cooldown = False
-        self.iframes = 30
+        self.iframes = 50
         self.can_take_damage = True
 
         self.screen = screen
@@ -109,7 +109,7 @@ class Player:
         self.is_attack_on_cooldown = False
 
     def reset_dmg_cooldown(self):
-        self.iframes = 30
+        self.iframes = 50
         self.is_take_dmg_on_cooldown = False
         self.can_take_damage = True
 
