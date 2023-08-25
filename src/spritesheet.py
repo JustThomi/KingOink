@@ -106,6 +106,7 @@ class DecorationTiles:
             'R': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'd_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
             'J': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'w_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
             'A': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'space_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
+            'E': pygame.transform.scale(pygame.image.load(os.path.join('assets', 'buttons', 'enter_key.png')).convert_alpha(), (settings.tile_size, settings.tile_size)),
         }
 
 # reference for level building untill I take the time to make a better system

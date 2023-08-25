@@ -1,6 +1,7 @@
 import pygame
 import src.scenes as scenes
 import src.settings as settings
+import sys
 
 
 class Game:
@@ -71,12 +72,12 @@ def main():
 
         for e in pygame.event.get():
             if e.type == pygame.QUIT:
-                pygame.quit()
+                sys.exit()
 
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
                     if game.state == 'win':
-                        pygame.quit()
+                        sys.exit()
                     else:
                         game.pause()
 

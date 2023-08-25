@@ -190,11 +190,14 @@ class Level:
             self.decoratione_tiles.hints['J'], (640, 350), self.decoratione_tiles.hints['J'].get_size())
         self.space_key = spritesheet.Tile(
             self.decoratione_tiles.hints['A'], (1500, 400), self.decoratione_tiles.hints['A'].get_size())
+        self.enter_key = spritesheet.Tile(
+            self.decoratione_tiles.hints['E'], (2000, 400), self.decoratione_tiles.hints['E'].get_size())
 
         self.map.append(self.a_key)
         self.map.append(self.d_key)
         self.map.append(self.w_key)
         self.map.append(self.space_key)
+        self.map.append(self.enter_key)
 
     def setup_level(self):
         for item in self.entity_data.levels[self.curr_level]:
