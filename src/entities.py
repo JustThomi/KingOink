@@ -13,12 +13,15 @@ class Player:
 
         self.swing_sound = pygame.mixer.Sound(
             os.path.join('assets', 'sounds', 'player', 'swing.wav'))
+        self.swing_sound.set_volume(0.2)
+
         self.jump_sound = pygame.mixer.Sound(
             os.path.join('assets', 'sounds', 'player', 'jump.ogg'))
-        self.step_sound = pygame.mixer.Sound(
-            os.path.join('assets', 'sounds', 'player', 'step.ogg'))
+        self.jump_sound.set_volume(0.2)
+
         self.hit_sound = pygame.mixer.Sound(
             os.path.join('assets', 'sounds', 'player', 'hit.ogg'))
+        self.hit_sound.set_volume(0.2)
 
         self.is_attack_on_cooldown = False
         self.attack_cooldown = 15
@@ -184,6 +187,8 @@ class Enemy:
 
         self.dead_sound = pygame.mixer.Sound(
             os.path.join('assets', 'sounds', 'pig', 'pig_hit.mp3'))
+        self.dead_sound.set_volume(0.2)
+
         self.animation_manager = graphics.AnimationManager(self.animations)
         self.flip_sprite = False
 
@@ -258,8 +263,11 @@ class Door:
 
         self.open_sound = pygame.mixer.Sound(os.path.join(
             'assets', 'sounds', 'door', 'door_open.ogg'))
+        self.open_sound.set_volume(0.2)
+
         self.close_sound = pygame.mixer.Sound(os.path.join(
             'assets', 'sounds', 'door', 'door_close.ogg'))
+        self.close_sound.set_volume(0.2)
 
     def check_enter(self):
         if self.animation_manager.state == 'open' and self.animation_manager.animation_status == 'done':
