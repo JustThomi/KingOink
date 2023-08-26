@@ -64,7 +64,7 @@ def main():
     clock = pygame.time.Clock()
     game = Game(screen)
 
-    pygame.mixer.music.load("assets\sounds\music.mp3")
+    pygame.mixer.music.load("./assets/sounds/music.mp3")
     pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play(-1)
 
